@@ -1,11 +1,8 @@
-import { utilService } from '../../../services/util.service'
-import { storageService } from '../../../services/async-storage.service'
+import { utilService } from '../../../services/util.service.js'
+import { storageService } from '../../../services/async-storage.service.js'
 
 export const emailService = {
-    // query,
-    // get,
-    // put,
-    // remove,
+    query,
     save,
 }
 
@@ -18,19 +15,13 @@ const loggedinUser = {
 
 _createEmails()
 
-// function query() {
-//     return storageService.query(EMAIL_KEY)
-//         .then(emails => email = email)
-// }
-
-// function get(emailId) {
-//     return storageService.get(EMAIL_KEY, emailId)
-// }
-
-// function post(newMail) {
-//     return storageService.post(EMAIL_KEY, newMail)
-// }
-
+function query() {
+    return storageService.query(EMAIL_KEY)
+        .then(emails => {
+            // console.log('emails', emails)
+            return emails
+        })
+}
 
 function save(email) {
     if (email.id) {
@@ -75,6 +66,6 @@ function _createEmails() {
                 to: 'user@appsus.com'
             }
         ]
-        utilService.save(emails)
+        save(emails)
     }
 }
