@@ -1,7 +1,7 @@
 export const utilService = {
-    makeId
+    makeId,
+    loadFromStorage
 }
-
 
 function makeId(length = 5) {
     var txt = ''
@@ -10,4 +10,9 @@ function makeId(length = 5) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return txt
+}
+
+function loadFromStorage(key) {
+    const data = localStorage.getItem(key)
+    return (data) ? JSON.parse(data) : undefined
 }
