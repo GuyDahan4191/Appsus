@@ -2,17 +2,13 @@
 export default {
     props: ['email'],
     template: `
-        <!-- <article>{{ email }}</article> -->
-        <article class="email-preview">
-            <div class="txt-container">
+        <article class="email-preview-container">
+            <button @click="onToggleStar" title="Add/Remove star">Star</button>
+            <div class="email-preview-info" @click="onOpenEmail">
                 <span class="name">{{email.from}}</span>
                 <span class="subject">{{email.subject}}</span>
                 <span class="body">{{email.body}}</span>
-            </div>
-            <span class="sent-at">{{email.sentAt}}</span>
-            <div class="actions">
-                button delete
-                button read
+                <span class="sent-at">{{email.sentAt}}</span>
             </div>
         </article> 
     `,
@@ -22,11 +18,9 @@ export default {
     },
 
     methods: {
-
+        onOpenEmail() {
+            this.$emit('openEmail', this.email)
+        }
     },
 
-
-    computed: {
-
-    },
 }
