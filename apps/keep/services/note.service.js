@@ -1,80 +1,122 @@
-import { utilService } from '../../../services/util.service'
-import { storageService } from '../../../services/async-storage.service'
+import { utilService } from "../../../services/util.service.js"
+import { storageService } from "../../../services/async-storage.service.js";
 
-export const emailService = {
-    // query,
-    // get,
-    // put,
-    // remove,
-    save,
-}
+export const noteService = {
+  query,
+  get,
+  post,
+  save,
+  remove,
+  getEmptyNote,
+};
 
-const EMAIL_KEY = 'emailDB'
+const NOTES_KEY = "noteDB";
 
 const loggedinUser = {
-    email: 'guy@appsus.com',
-    fullname: 'Guy Dahan'
+  email: "shay@appsus.com",
+  fullname: "Shay Zigdon",
+};
+
+_createNotes()
+
+function query() {
+  return storageService.query(NOTES_KEY)
+  .then((notes) => {
+    return notes;
+  });
 }
 
-_createEmails()
-
-// function query() {
-//     return storageService.query(EMAIL_KEY)
-//         .then(emails => email = email)
-// }
-
-// function get(emailId) {
-//     return storageService.get(EMAIL_KEY, emailId)
-// }
-
-// function post(newMail) {
-//     return storageService.post(EMAIL_KEY, newMail)
-// }
-
-
-function save(email) {
-    if (email.id) {
-        return storageService.put(EMAIL_KEY, email)
-    } else {
-        return storageService.post(EMAIL_KEY, email)
-    }
+function getEmptyNote(title) {
+  return { id: '', title,  }
 }
 
-function _createEmails() {
-    let emails = utilService.load(EMAIL_KEY) || []
-    if (!emails || !emails.length) {
-        const emails = [
-            {
-                id: 'e101',
-                subject: 'Miss you!',
-                body: '11Would love to catch up sometimes',
-                isRead: false,
-                sentAt: 1551133930594,
-                removedAt: null,
-                from: 'momo@momo.com',
-                to: 'user@appsus.com'
-            },
-            {
-                id: 'e102',
-                subject: 'Hate you!',
-                body: '22Would love to catch up sometimes',
-                isRead: true,
-                sentAt: 1551133930594,
-                removedAt: null,
-                from: 'jojo@jojo.com',
-                to: 'user@appsus.com'
-            },
-            {
-                id: 'e103',
-                subject: 'Love you!',
-                body: '33Would love to catch up sometimes',
-                isRead: false,
-                sentAt: 1551133930594,
-                removedAt: null,
-                from: 'koko@koko.com',
-                to: 'user@appsus.com'
-            }
-        ]
-        utilService.save(emails)
-    }
+function remove(noteId) {
+  return storageService.remove(NOTES_KEY, noteId)
+}
+
+function get(noteId) {
+  return storageService.get(NOTES_KEY, noteId);
+}
+
+function post(newNote) {
+  return storageService.post(NOTES_KEY, newNote);
+}
+
+function save(note) {
+  if (note.id) {
+    return storageService.put(NOTES_KEY, note);
+  } else {
+    return storageService.post(NOTES_KEY, note);
+  }
+}
+
+function _createNotes() {
+  let notes = utilService.load(NOTES_KEY) || [];
+  if (!notes || !notes.length) {
+    const notes = [
+      {
+        id: "n101",
+        createdAt: 1112222,
+        type: "NoteTxt",
+        isPinned: true,
+        style: {
+          backgroundColor: "#00d",
+        },
+        info: {
+          txt: "Fullstack Me Baby!",
+        },
+      },
+      {
+        id: "n102",
+        createdAt: 11343422,
+        type: "NoteTxt",
+        isPinned: false,
+        style: {
+          backgroundColor: "#02d",
+        },
+        info: {
+          txt: "Hello There!",
+        },
+      },
+      {
+        id: "n103",
+        createdAt: 1112222,
+        type: "NoteTxt",
+        isPinned: true,
+        style: {
+          backgroundColor: "#00d",
+        },
+        info: {
+          txt: "Keep Going!!",
+        },
+      },
+
+      // {
+      //   id: "n102",
+      //   type: "NoteImg",
+      //   isPinned: false,
+      //   info: {
+      //     url: "http://some-img/me",
+      //     title: "Bobi and Me",
+      //   },
+      //   style: {
+      //     backgroundColor: "#00d",
+      //   },
+      // },
+      
+      // {
+      //   id: "n103",
+      //   type: "NoteTodos",
+      //   isPinned: false,
+      //   info: {
+      //     title: "Get my stuff together",
+      //     todos: [
+      //       { txt: "Driving license", doneAt: null },
+      //       { txt: "Coding power", doneAt: 187111111 },
+      //     ],
+      //   },
+      // },
+    ];
+    utilService.save(NOTES_KEY, notes);
+  }
 }

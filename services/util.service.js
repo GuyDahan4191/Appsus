@@ -1,6 +1,7 @@
 export const utilService = {
     makeId,
-    loadFromStorage
+    load,
+    save
 }
 
 function makeId(length = 5) {
@@ -12,7 +13,10 @@ function makeId(length = 5) {
     return txt
 }
 
-function loadFromStorage(key) {
+function load(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
+}
+function save(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
 }
