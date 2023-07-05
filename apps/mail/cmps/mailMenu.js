@@ -1,14 +1,15 @@
 export default {
     template: `
-        <aside class="mail-menu">
-            <button>Compose</button>
+
+        <section class="email-menu">
+            <button class="new-email">Compose</button>
             <ul>
-                <li>Inbox</li>
-                <li>Starred</li>
-                <li>Sent</li>
-                <li>Draft</li>
-                <li>Trash</li>
+                <li>Inbox <span></span></li>
+                <li>Starred <span></span></li>
+                <li>Sent <span></span></li>
+                <li>Draft <span></span></li>
+                <li>Trash <span></span></li>
             </ul>
-        </aside>
+        </section>
     `
 }

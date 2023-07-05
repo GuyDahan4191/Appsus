@@ -7,7 +7,10 @@ export default {
         <section class="email-list">
             <ul>
                 <li v-for="email in emails" :key="email.id">
-                    <EmailPreview :email="email"/>
+
+                    <EmailPreview 
+                        :email="email"
+                        @click="onOpenEmail"/>
                         <div class="actions">
                             <button @click="onRemoveEmail(email.id)" title="Remove">Delete</button>
                             <button @click="onToggleRead" title="Mark as read/unread">Read</button>
@@ -31,13 +34,18 @@ export default {
     },
 
     methods: {
+        // onOpenEmail() {
+        //     console.log('open Email (read) in list')
+        //     this.$emit('read', this.email)
+        // },
+
         onToggleStar() {
             console.log('Star')
             this.$emit('star', this.email.id)
         },
 
         onRemoveEmail(emailId) {
-            console.log('Remove')
+            console.log('Remove in List')
             this.$emit('remove', emailId)
         },
 

@@ -18,6 +18,7 @@ export default {
 
     methods: {
         onSetFilterBy() {
+            console.log('searching in mailFilter:')
             this.$emit('filter', this.filterBy)
         }
     }

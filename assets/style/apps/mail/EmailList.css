@@ -8,7 +8,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 0 20px;
     border-bottom: 1px solid #362121;
     background-color: #c5bdbd;
+    font-weight: bold;
+}
+
+.email-list li {
+    font-weight: normal;
 }

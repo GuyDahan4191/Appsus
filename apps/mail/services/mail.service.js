@@ -6,11 +6,12 @@ export const emailService = {
     get,
     put,
     getFilterBy,
+    setFilterBy,
     save,
     remove,
     toggleRead,
     toggleStar,
-    getUnread,
+    getCountUnread,
 }
 
 const EMAIL_KEY = 'emailDB'
@@ -50,7 +51,7 @@ function getFilterBy() {
 
 function setFilterBy(filterBy = {}) {
     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
-    if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
+    // if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
     return gFilterBy
 }
 
@@ -72,12 +73,19 @@ function toggleRead(email) {
     return put(email)
 }
 
-function toggleStar() {
-    // need to be update
+function toggleStar(emailId) {
+    return get(id)
+        .then(email => {
+            console.log('star before:', email.isStar)
+            email.isStar = !email.isStar
+            console.log('star after:', email.isStar)
+            return put(email)
+        })
 }
 
-function getUnread() {
-    // need to be update
+function getCountUnread() {
+    return query({ menu: 'inbox', txt: '' })
+        .then(emails => emails.filter(email => email.isRead === 'unread').length)
 }
 
 function _createEmails() {
