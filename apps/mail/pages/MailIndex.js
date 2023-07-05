@@ -9,8 +9,8 @@ export default {
             <EmailFilter @filter="setFilterBy"/>
             <!-- :emails="filteredEmails" -->
             <EmailList
-                :emails="emails" 
                 v-if="emails" 
+                :emails="emails" 
                 @remove="removeEmail"/>
             
         </section>
@@ -38,7 +38,7 @@ export default {
 
     methods: {
         romoveEmail(emailId) {
-            emailService.handleRemove(emailId)
+            emailService.remove(emailId)
                 .then(() => {
                     const idx = this.emails.findIndex(email => email.id === emailId)
                     this.email.splice(idx, 1)
@@ -48,6 +48,14 @@ export default {
                     console.log('err:', err)
                     showErrorMsg('Cannot remove email')
                 })
+        },
+
+        removeNote(noteId) {
+            noteService.remove(noteId).then(() => {
+                const noteIdx = this.notes.findIndex((note) => note.id === noteId);
+                this.notes.splice(noteIdx, 1);
+                showSuccessMsg("Note Removed!");
+            });
         },
 
         setFilterBy(filterBy) {
