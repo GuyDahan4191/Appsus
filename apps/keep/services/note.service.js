@@ -26,8 +26,9 @@ function query() {
   });
 }
 
-function getEmptyNote(title) {
-  return { id: '', title,  }
+function getEmptyNote(txt) {
+  return { id: '', createdAt: 122333 ,type:"NoteTxt", 
+  isPinned: false, style: {backgroundColor: "#00d"}, info: {txt}}
 }
 
 function remove(noteId) {
@@ -80,6 +81,42 @@ function _createNotes() {
       },
       {
         id: "n103",
+        createdAt: 1112222,
+        type: "NoteTxt",
+        isPinned: true,
+        style: {
+          backgroundColor: "#00d",
+        },
+        info: {
+          txt: "Keep Going!!",
+        },
+      },
+      {
+        id: "n104",
+        createdAt: 1112222,
+        type: "NoteTxt",
+        isPinned: true,
+        style: {
+          backgroundColor: "#00d",
+        },
+        info: {
+          txt: "Fullstack Me Baby!",
+        },
+      },
+      {
+        id: "n105",
+        createdAt: 11343422,
+        type: "NoteTxt",
+        isPinned: false,
+        style: {
+          backgroundColor: "#02d",
+        },
+        info: {
+          txt: "Hello There!",
+        },
+      },
+      {
+        id: "n106",
         createdAt: 1112222,
         type: "NoteTxt",
         isPinned: true,
