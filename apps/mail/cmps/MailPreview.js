@@ -2,7 +2,7 @@
 export default {
     props: ['email'],
     template: `
-        <article>{{ email.id }}</article>
+        <article>{{ email }}</article>
         <!-- <article class="email-preview">
             <div class="txt-container">
                 <span class="name">{{email.from}}</span>
