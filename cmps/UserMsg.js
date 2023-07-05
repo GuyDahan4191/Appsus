@@ -10,7 +10,7 @@ export default {
 		return {
 			msg: { txt: '', type: 'success' },
 		}
-	},
+	},        
 	created() {
 		eventBus.on('show-msg', this.showMsg)
 	},
