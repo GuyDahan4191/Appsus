@@ -2,8 +2,8 @@
 export default {
     props: ['email'],
     template: `
-        <article>{{ email.id }}</article>
-        <!-- <article class="email-preview">
+        <!-- <article>{{ email }}</article> -->
+        <article class="email-preview">
             <div class="txt-container">
                 <span class="name">{{email.from}}</span>
                 <span class="subject">{{email.subject}}</span>
@@ -14,7 +14,7 @@ export default {
                 button delete
                 button read
             </div>
-        </article>  -->
+        </article> 
     `,
 
     created() {
