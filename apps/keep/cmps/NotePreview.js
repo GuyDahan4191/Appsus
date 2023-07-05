@@ -1,9 +1,20 @@
+import NoteTodos from "../cmps/NotTodos.js";
+import NoteImg from "../cmps/NoteImg.js";
+import NoteVideo from "../cmps/NoteVideo.js";
+import NoteTxt from "../cmps/NoteTxt.js";
+
 export default {
   props: ["note"],
   template: `
-<div className="note-preview">
-    <h2> {{note.info.txt }}</h2>
-</div>
+   <Component
+         :is="note.type"
+         :info="note.info"
+         />
     `,
-  components: {},
+  components: {
+    NoteTodos,
+    NoteImg,
+    NoteVideo,
+    NoteTxt,
+  },
 };

@@ -1,4 +1,4 @@
-import { utilService } from "../../../services/util.service.js"
+import { utilService } from "../../../services/util.service.js";
 import { storageService } from "../../../services/async-storage.service.js";
 
 export const noteService = {
@@ -17,22 +17,29 @@ const loggedinUser = {
   fullname: "Shay Zigdon",
 };
 
-_createNotes()
+_createNotes();
 
 function query() {
-  return storageService.query(NOTES_KEY)
-  .then((notes) => {
+  return storageService.query(NOTES_KEY).then((notes) => {
     return notes;
   });
 }
 
 function getEmptyNote(txt) {
-  return { id: '', createdAt: 122333 ,type:"NoteTxt", 
-  isPinned: false, style: {backgroundColor: "#00d"}, info: {txt}}
+  return {
+    id: "",
+    createdAt: 122333,
+    type: "NoteTxt",
+    isPinned: false,
+    style: {
+      backgroundColor: "#00d",
+    },
+    info: { txt },
+  };
 }
 
 function remove(noteId) {
-  return storageService.remove(NOTES_KEY, noteId)
+  return storageService.remove(NOTES_KEY, noteId);
 }
 
 function get(noteId) {
@@ -56,30 +63,6 @@ function _createNotes() {
   if (!notes || !notes.length) {
     const notes = [
       {
-        id: "n101",
-        createdAt: 1112222,
-        type: "NoteTxt",
-        isPinned: true,
-        style: {
-          backgroundColor: "#00d",
-        },
-        info: {
-          txt: "Fullstack Me Baby!",
-        },
-      },
-      {
-        id: "n102",
-        createdAt: 11343422,
-        type: "NoteTxt",
-        isPinned: false,
-        style: {
-          backgroundColor: "#02d",
-        },
-        info: {
-          txt: "Hello There!",
-        },
-      },
-      {
         id: "n103",
         createdAt: 1112222,
         type: "NoteTxt",
@@ -89,30 +72,6 @@ function _createNotes() {
         },
         info: {
           txt: "Keep Going!!",
-        },
-      },
-      {
-        id: "n104",
-        createdAt: 1112222,
-        type: "NoteTxt",
-        isPinned: true,
-        style: {
-          backgroundColor: "#00d",
-        },
-        info: {
-          txt: "Fullstack Me Baby!",
-        },
-      },
-      {
-        id: "n105",
-        createdAt: 11343422,
-        type: "NoteTxt",
-        isPinned: false,
-        style: {
-          backgroundColor: "#02d",
-        },
-        info: {
-          txt: "Hello There!",
         },
       },
       {
@@ -127,32 +86,31 @@ function _createNotes() {
           txt: "Keep Going!!",
         },
       },
+      {
+        id: "n102",
+        type: "NoteImg",
+        isPinned: false,
+        info: {
+          url: "https://plus.unsplash.com/premium_photo-1664701475272-953393050754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
+          title: "Bobi and Me",
+        },
+        style: {
+          backgroundColor: "#00d",
+        },
+      },
 
-      // {
-      //   id: "n102",
-      //   type: "NoteImg",
-      //   isPinned: false,
-      //   info: {
-      //     url: "http://some-img/me",
-      //     title: "Bobi and Me",
-      //   },
-      //   style: {
-      //     backgroundColor: "#00d",
-      //   },
-      // },
-      
-      // {
-      //   id: "n103",
-      //   type: "NoteTodos",
-      //   isPinned: false,
-      //   info: {
-      //     title: "Get my stuff together",
-      //     todos: [
-      //       { txt: "Driving license", doneAt: null },
-      //       { txt: "Coding power", doneAt: 187111111 },
-      //     ],
-      //   },
-      // },
+      {
+        id: "n103",
+        type: "NoteTodos",
+        isPinned: false,
+        info: {
+          title: "Get my stuff together",
+          todos: [
+            { txt: "Driving license", doneAt: null },
+            { txt: "Coding power", doneAt: 187111111 },
+          ],
+        },
+      },
     ];
     utilService.save(NOTES_KEY, notes);
   }
