@@ -3,10 +3,18 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 export const emailService = {
     query,
+    get,
+    put,
+    getFilterBy,
     save,
+    remove,
+    toggleRead,
+    toggleStar,
+    getUnread,
 }
 
 const EMAIL_KEY = 'emailDB'
+var gFilterBy = { txt: '' }
 
 const loggedinUser = {
     email: 'guy@appsus.com',
@@ -19,8 +27,31 @@ function query() {
     return storageService.query(EMAIL_KEY)
         .then(emails => {
             // console.log('emails', emails)
+            if (gFilterBy.txt) {
+                const regex = new RegExp(gFilterBy.txt, 'i')
+                emails = emails.filter(email => regex.test(email.subject) || regex.test(email.body))
+            }
+            // console.log('emails', emails)
             return emails
         })
+}
+
+function get(emailId) {
+    return storageService.get(EMAIL_KEY, emailId)
+}
+
+function put(updatedEmail) {
+    return storageService.put(EMAIL_KEY, updatedEmail)
+}
+
+function getFilterBy() {
+    return { ...gFilterBy }
+}
+
+function setFilterBy(filterBy = {}) {
+    if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
+    if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
+    return gFilterBy
 }
 
 function save(email) {
@@ -29,6 +60,24 @@ function save(email) {
     } else {
         return storageService.post(EMAIL_KEY, email)
     }
+}
+
+function remove(emailId) {
+    return storageService.remove(EMAIL_KEY, emailId)
+}
+
+function toggleRead(email) {
+    email.isRead = (email.isRead === 'read') ? 'unread' : 'read'
+    // update the email in the menu navbar
+    return put(email)
+}
+
+function toggleStar() {
+    // need to be update
+}
+
+function getUnread() {
+    // need to be update
 }
 
 function _createEmails() {
@@ -40,16 +89,19 @@ function _createEmails() {
                 subject: 'Miss you!',
                 body: '11Would love to catch up sometimes',
                 isRead: false,
+                isStar: false,
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+
             },
             {
                 id: 'e102',
                 subject: 'Hate you!',
                 body: '22Would love to catch up sometimes',
                 isRead: true,
+                isStar: false,
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'jojo@jojo.com',
@@ -60,6 +112,7 @@ function _createEmails() {
                 subject: 'Love you!',
                 body: '33Would love to catch up sometimes',
                 isRead: false,
+                isStar: false,
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'koko@koko.com',
