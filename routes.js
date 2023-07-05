@@ -17,13 +17,13 @@ const routerOptions = {
 			component: AboutUs,
 		},
 		{
-            path: '/keep',
-            component: NoteIndex
-        },
+			path: '/keep',
+			component: NoteIndex
+		},
 		{
-            path: '/mail',
-            component: MailIndex
-        },
+			path: '/mail',
+			component: MailIndex
+		},
 	],
 }
 

@@ -1,6 +1,5 @@
-import { emailService } from "../apps/email/services/emailService.js"
 export default {
-	template: `
+    template: `
         <h2>mail</h2>
     `,
 }
