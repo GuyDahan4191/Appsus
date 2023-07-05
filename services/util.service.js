@@ -1,7 +1,11 @@
 export const utilService = {
     makeId,
+<<<<<<< HEAD
     load,
     save
+=======
+    load
+>>>>>>> 9da366e6e61f054e863c34ad773b43bb09620f4b
 }
 
 function makeId(length = 5) {
