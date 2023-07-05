@@ -31,10 +31,18 @@ _createEmails()
 //     return storageService.post(EMAIL_KEY, newMail)
 // }
 
+function save(email) {
+    if (email.id) {
+        return storageService.put(EMAIL_KEY, email)
+    } else {
+        return storageService.post(EMAIL_KEY, email)
+    }
+}
+
 function _createEmails() {
     let emails = utilService.load(EMAIL_KEY) || []
     if (!emails || !emails.length) {
-        const email = [
+        const emails = [
             {
                 id: 'e101',
                 subject: 'Miss you!',
@@ -66,6 +74,6 @@ function _createEmails() {
                 to: 'user@appsus.com'
             }
         ]
+        utilService.save(emails)
     }
-    utilService.save(EMAIL_KEY, emails)
 }
