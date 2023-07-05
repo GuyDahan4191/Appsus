@@ -66,6 +66,6 @@ function _createEmails() {
                 to: 'user@appsus.com'
             }
         ]
-        save(emails)
+        utilService.save(EMAIL_KEY, emails);
     }
 }

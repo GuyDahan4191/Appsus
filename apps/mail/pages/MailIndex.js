@@ -17,7 +17,11 @@ export default {
 
     created() {
         emailService.query()
-            .then(emails => this.emails = emails)
+            .then(emails => {
+                this.emails = emails
+                console.log('emails:', emails)
+            })
+
     },
 
     components: {
