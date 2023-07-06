@@ -9,11 +9,22 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    border-bottom: 1px solid #362121;
-    background-color: #c5bdbd;
-    font-weight: bold;
+    margin: 2px 0;
+    border-bottom: 1px solid black;
+    background-color: whitesmoke;
 }
 
-.email-list li {
-    font-weight: normal;
+.actions {
+    display: none;
+    height: 30px;
+}
+
+.email-list li:hover {
+    box-shadow: 1px 1px 1px 1px grey;
+}
+
+.email-list li:hover .actions {
+    display: flex;
+    position: absolute;
+    margin-right: 0;
 }

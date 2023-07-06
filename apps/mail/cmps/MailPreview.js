@@ -2,27 +2,33 @@
 export default {
     props: ['email'],
     template: `
-        <article class="email-preview-container" 
-            @click="onToggleRead" :class="isRead">
-            <!-- <input type="checkBox" @click="onToggleStar" title="Add/Remove star">
-                        <span :class="['star-icon']">&starf;</span> -->
-                <div  @click="onStar" class="star-icon" :class="starState"></div>
-                <!-- <div class="rating-stars">
-                    <span class="star" @click="setRating">
-                        <span :class="['star-icon', 'selected']">&starf;</span>
-                    </span>
-                </div> -->
+        <RouterLink :to="'/mail/' + email.id">
+            <article class="email-preview-container"
+                :class="{'unread-email': !email.isRead,
+                'read-email': email.isRead}">
 
-            <div class="email-preview-info">
-                <span class="name">{{email.from}}</span>
-                <div>
-                    <span class="subject">{{email.subject}}</span>
-                     - 
-                    <span class="body">{{email.body}}</span>
+                
+                <!-- @click="onToggleRead" :class="isRead"> -->
+                <!-- <input type="checkBox" @click="onStar" title="Add/Remove star">
+                            <span :class="['star-icon']">&starf;</span> -->
+                    <!-- <div  @click="onStar" class="star-icon" :class="starState"></div> -->
+                    <!-- <div class="rating-stars">
+                        <span class="star" @click="onStar">
+                            <span :class="['star-icon', 'selected']">&starf;</span>
+                        </span>
+                    </div> -->
+
+                <div class="email-preview-info">
+                    <span class="name">{{email.from}}</span>
+                    <div>
+                        <span class="subject">{{email.subject}}</span>
+                        - 
+                        <span class="body">{{email.body}}</span>
+                    </div>
+                    <span class="sent-at">{{readableTime}}</span>
                 </div>
-                <span class="sent-at">{{readableTime}}</span>
-            </div>
-        </article> 
+            </article>
+        </RouterLink>
     `,
 
     created() {
@@ -35,7 +41,7 @@ export default {
         },
 
         onStar() {
-            this.email.isStar = true
+            return this.email.isStar ? false : true
         },
     },
 
@@ -60,12 +66,6 @@ export default {
                 }
             }
             return new Intl.DateTimeFormat('default', formation).format(this.email.sentAt)
-        },
-
-        starState() {
-            return {
-                'active': this.email.isStar
-            }
         },
     },
 }

@@ -21,5 +21,9 @@ export default {
             console.log('searching in mailFilter:')
             this.$emit('filter', this.filterBy)
         }
+    },
+
+    computed: {
+
     }
 }

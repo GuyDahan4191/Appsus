@@ -7,14 +7,15 @@ export default {
         <section class="email-list">
             <ul>
                 <li v-for="email in emails" :key="email.id">
-
-                    <EmailPreview 
-                        :email="email"
-                        @click="onOpenEmail"/>
-                        <div class="actions">
-                            <button @click="onRemoveEmail(email.id)" title="Remove">Delete</button>
-                            <button @click="onToggleRead" title="Mark as read/unread">Read</button>
-                        </div>
+                        <EmailPreview 
+                            :email="email"
+                            @click="onOpenEmail(email.id)"
+                        />
+                    
+                    <div class="actions">
+                        <button @click="onRemoveEmail(email.id)" title="Remove">Delete</button>
+                        <button @click="onToggleRead" title="Mark as read/unread">Read</button>
+                    </div>
                 </li>
             </ul>
         </section>
@@ -22,22 +23,33 @@ export default {
 
     data() {
         return {
-            mails: []
+            // emails: []
         }
     },
 
+    watch: {
+        emails: {
+            immediate: true,
+            handler(emailList) { },
+        },
+    },
+
     created() {
-        emailService.query()
-            .then(mails => {
-                this.mails = mails
-            })
+        // emailService.query()
+        //     .then(emails => {
+        //         this.emails = emails
+        //     })
     },
 
     methods: {
         // onOpenEmail() {
         //     console.log('open Email (read) in list')
-        //     this.$emit('read', this.email)
+        //     this.$emit('open', this.email)
         // },
+        onOpenEmail(emailId) {
+            console.log('open Email (read) in list')
+            this.$emit('openEmail', emailId)
+        },
 
         onToggleStar() {
             console.log('Star')

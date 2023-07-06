@@ -85,7 +85,7 @@ function toggleStar(emailId) {
 
 function getCountUnread() {
     return query({ menu: 'inbox', txt: '' })
-        .then(emails => emails.filter(email => email.isRead === 'unread').length)
+        .then(emails => emails.filter(email => email.isRead === 'false').length)
 }
 
 function _createEmails() {
@@ -124,6 +124,17 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'koko@koko.com',
+                to: 'user@appsus.com'
+            },
+            {
+                id: 'e104',
+                subject: 'I want to sleep!',
+                body: 'I f*****g hate all of this bugs',
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now(),
+                removedAt: null,
+                from: 'guy@dahan.com',
                 to: 'user@appsus.com'
             }
         ]

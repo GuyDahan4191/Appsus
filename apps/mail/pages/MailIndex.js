@@ -10,10 +10,10 @@ export default {
             <EmailFilter @filter="setFilterBy"/>
             <EmailMenu/>
             <EmailList
-                v-if="emails" 
+                v-if="$route.name !== 'EmailDetails'"
                 :emails="filteredEmails" 
                 @remove="removeEmail"
-                @read="openEmail"/>
+                @openEmail="openEmail"/>
             
         </section>
     `,
@@ -22,7 +22,7 @@ export default {
         return {
             emails: [],
             filterBy: {
-                // menu: 'inbox',
+                menu: 'inbox',
                 txt: '',
                 // isStared: false,
                 // isRead: 'all',
@@ -34,16 +34,15 @@ export default {
         filteredEmails() {
             let filteredEmails = this.emails
             const regex = new RegExp(this.filterBy.txt, 'i')
-            filteredEmails = filteredEmails.filter(email => regex.test(email.subject) || regex.test(email.body))
+            filteredEmails = filteredEmails.filter(email => regex.test(email.subject) || regex.test(email.body) || regex.test(email.from))
             return filteredEmails
-        }
+        },
     },
 
     created() {
         emailService.query()
             .then(emails => {
                 this.emails = emails
-                console.log('emails:', emails)
             })
     },
 
@@ -61,16 +60,42 @@ export default {
                 })
         },
 
-        openEmail(id) {
-            emailService.get(id)
+        openEmail(emailId) {
+            emailService.get(emailId)
                 .then(email => {
-                    if (email.isRead === 'read') {
-                        return email
+                    if (!email.isRead) {
+                        email.isRead = true
+                        console.log('after open email:', email)
+                        return emailService.save(email)
                     }
-                    console.log('open Email (read) in index')
-                    return emailService.toggleRead(email)
-                        .then(() => email)
                 })
+                // console.log('open Email (read) in index')
+                .then(savedEmail => {
+                    console.log('savedEmail', savedEmail)
+                    showSuccessMsg('Email marked as Read')
+                })
+                .catch(err => {
+                    // showErrorMsg('Cannot mark email as read')
+                })
+        },
+
+        // const email = this.emails.find(email => email.id === emailId)
+        // email.isRead = true
+
+        // console.log('emailId:', emailId)
+        // console.log('email:', email)
+        // console.log('this.emails:', this.emails)
+
+        // emailService.save(email)
+        //     .then(email => this.email = email)
+        // console.log('email after save:', email)
+        // this.$router.push({ component: 'MailDetails', params: { emailId } })
+        // console.log('emailId:', emailId)
+        // },
+
+        toggleRead() {
+            console.log('Read')
+            this.$emit('toggleRead', this.email.id)
         },
 
         setFilterBy(filterBy) {

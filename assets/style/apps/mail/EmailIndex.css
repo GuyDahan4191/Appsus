@@ -1,6 +1,6 @@
 .email-index {
     display: grid;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 200px 1fr;
     grid-template-rows: 50px auto;
     grid-template-areas:
         "menu   search"
@@ -21,7 +21,7 @@
     grid-template-rows: 1/2; */
 }
 
-.email-search input {
+.email-filter input {
     border-radius: 10px;
     width: 40vw;
 }
@@ -34,7 +34,8 @@
 
 .email-preview-info {
     display: grid;
-    grid-template-columns: 150px 1fr 70px;
+    width: 100%;
+    grid-template-columns: 200px 1fr 70px;
     grid-template-rows: 50px;
     grid-auto-flow: column;
     height: 30px;
@@ -43,18 +44,21 @@
 
 .new-email {
     border-radius: 10px;
+    width: 130px;
+    height: 60px;
     background-color: lightblue;
 }
 
 .new-email:hover {
     box-shadow: 2px 2px 2px 2px lightgray;
+    padding: 10px;
 }
 
 .email-menu li {
     grid-area: menu;
     border-radius: 0 15px 15px 0;
     padding: 5px;
-    margin: 2px;
+    margin: 2px 0;
     cursor: pointer;
     /* grid-template-columns: 1/2;
     grid-template-rows: 1/3; */
