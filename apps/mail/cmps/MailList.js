@@ -13,8 +13,8 @@ export default {
                         />
                     
                     <div class="actions">
-                        <button @click="onRemoveEmail(email.id)" title="Remove">Delete</button>
-                        <button @click="onToggleRead" title="Mark as read/unread">Read</button>
+                        <button class="btn" @click="onRemoveEmail(email.id)" title="Remove">Delete</button>
+                        <button class="btn" @click="onToggleRead" title="Mark as read/unread">Read</button>
                     </div>
                 </li>
             </ul>

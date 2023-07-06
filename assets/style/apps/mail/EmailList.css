@@ -1,14 +1,13 @@
-/* .email-list ul {
-    height: 100%;
+.email-list li {
     display: flex;
     flex-direction: column;
-} */
+}
 
 .email-preview-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 24px;
     margin: 2px 0;
     border-bottom: 1px solid black;
     background-color: whitesmoke;
@@ -26,5 +25,14 @@
 .email-list li:hover .actions {
     display: flex;
     position: absolute;
-    margin-right: 0;
+    margin-inline-end: 0;
+    right: 10px;
+    background-color: white;
+}
+
+.action.btn {
+    height: 10px;
+    padding: 0px;
+    margin: 0px;
+    background-color: white;
 }
