@@ -22,6 +22,8 @@
 @import 'apps/mail/EmailList.css';
 @import 'apps/mail/EmailPreview.css';
 @import 'apps/mail/EmailDetails.css';
+@import 'apps/mail/EmailMenu.css';
+@import 'apps/mail/ComposeEmail.css';
 
 /* ############################################# */
 /* Keep */

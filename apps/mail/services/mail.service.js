@@ -33,7 +33,26 @@ function query() {
                 const regex = new RegExp(gFilterBy.txt, 'i')
                 emails = emails.filter(email => regex.test(email.subject) || regex.test(email.body))
             }
-            // console.log('emails', emails)
+            if (gFilterBy.status) {
+                switch (gFilterBy.status) {
+                    case 'inbox':
+                        emails = emails.filter(email =>
+                            (email.to === loggedinUser.email) && (email.removedAt === null))
+                        break
+                    // case 'starred':
+                    //     mails = mails.filter(mail => mail.isStarred === true)
+                    //     break
+                    // case 'sent':
+                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt)
+                    //     break
+                    // case 'trash':
+                    //     mails = mails.filter(mail => mail.removedAt !== null)
+                    //     break
+                    // case 'draft':
+                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt === null)
+                    //     break
+                }
+            }
             return emails
         })
 }
@@ -104,7 +123,6 @@ function _createEmails() {
                 removedAt: null,
                 from: 'momo@momo.com',
                 to: 'user@appsus.com',
-
             },
             {
                 id: 'e102',

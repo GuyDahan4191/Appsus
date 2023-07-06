@@ -4,28 +4,27 @@ import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.servic
 import EmailList from '../cmps/MailList.js'
 import EmailFilter from '../cmps/MailFilter.js'
 import EmailMenu from '../cmps/MailMenu.js'
+import ComposeMail from '../cmps/ComposeMail.js'
 
 export default {
     name: 'EmailIndex',
     props: ['email'],
     template: `
         <section class="email-index">
+            <button class="new-email" @click="toggleCompose"><span class="material-symbols-outlined">
+                edit
+                </span>Compose</button>
 
             <EmailFilter @filter="setFilterBy"/>
-            <EmailMenu/>
-            <span>{{ unreadCount }}</span>
-            <!-- <EmailList
-                v-if="$route.name !== 'EmailDetails'"
-                :emails="filteredEmails" 
-                @remove="removeEmail"
-                @openEmail="openEmail"/> -->
+            <EmailMenu @filterByMenu="onFilterByMenu" :emails="emails"/>
             <EmailList
                 v-if="emails"
                 :emails="filteredEmails" 
                 @remove="removeEmail"
                 @openEmail="openEmail"
                 />
-            <RouterView/>
+            <ComposeMail @send="send" v-if="isCompose"/>
+            <RouterView :emails="emails"/>
         </section>
     `,
 
@@ -38,6 +37,7 @@ export default {
                 // isStared: false,
                 // isRead: 'all',
             },
+            isCompose: false,
         }
     },
 
@@ -54,10 +54,6 @@ export default {
             const regex = new RegExp(this.filterBy.txt, 'i')
             filteredEmails = filteredEmails.filter(email => regex.test(email.subject) || regex.test(email.body) || regex.test(email.from))
             return filteredEmails
-        },
-
-        unreadCount() {
-            return this.emails.filter(email => !email.isRead).length
         },
     },
 
@@ -94,19 +90,15 @@ export default {
                 })
         },
 
-        //     const email = this.emails.find(email => email.id === emailId)
-        //     email.isRead = true
+        onFilterByMenu(filter) {
+            emailService.setFilterBy({ status: filter })
+            this.getEmails()
+        },
 
-        //     console.log('emailId:', emailId)
-        //     // console.log('email:', email)
-        //     // console.log('this.emails:', this.emails)
-
-        //     emailService.save(email)
-        //         .then(email => email = this.email)
-        //     console.log('email after save:', email)
-        //     this.$router.push({ component: 'EmailDetails', params: { emailId } })
-        //     console.log('route:', this.$router.push({ component: 'EmailDetails', params: { emailId } }))
-        // },
+        getEmails() {
+            emailService.query()
+                .then(emails => this.emails = emails)
+        },
 
         toggleRead() {
             console.log('Read')
@@ -117,11 +109,35 @@ export default {
             this.filterBy.txt = filterBy.txt
             console.log('filterBy.txt:', this.filterBy.txt)
         },
+
+        send(sendEmail) {
+            const email = {
+                id: '',
+                subject: sendEmail.subject,
+                body: sendEmail.body,
+                isRead: false,
+                isStarred: false,
+                sentAt: Date.now(),
+                removedAt: null,
+                from: 'guy@appsus.com',
+                to: sendEmail.to
+            }
+            emailService.save(email)
+                .then(savedmail => this.emails.push(savedmail))
+            this.showCompose = false
+            showSuccessMsg('mail sent')
+        },
+
+        toggleCompose() {
+            console.log('new messege:')
+            this.isCompose = !this.isCompose
+        },
     },
 
     components: {
         EmailList,
         EmailFilter,
         EmailMenu,
+        ComposeMail,
     },
 }

@@ -4,9 +4,12 @@ import { emailService } from '../services/mail.service.js'
 export default {
     name: 'EmailList',
     props: ['emails'],
+    // emit: ['isListShown'],
+
     template: `
         <section class="email-list">
             <ul>
+                <!-- <li v-for="email in emails" :key="email.id" v-if="isListShown"> -->
                 <li v-for="email in emails" :key="email.id">
                         <EmailPreview 
                             :email="email"
@@ -14,8 +17,13 @@ export default {
                         />
                     
                     <div class="actions">
-                        <button class="btn" @click="onRemoveEmail(email.id)" title="Remove">Delete</button>
-                        <button class="btn" @click="onToggleRead" title="Mark as read/unread">Read</button>
+                        <span class="btn" @click="onRemoveEmail(email.id)" title="Remove" class="material-symbols-outlined">
+                            delete
+                        </span>
+                        
+                        <span class="btn" @click="onToggleRead" title="Mark as read/unread" class="material-symbols-outlined">
+                        drafts
+                        </span>
                     </div>
                 </li>
             </ul>
@@ -24,9 +32,16 @@ export default {
 
     data() {
         return {
-            // emails: []
+            isListShown: true
         }
     },
+
+    // data() {
+    //     return {
+    //         isListShown = true        
+    //         // emails: []
+    //     }
+    // },
 
     // watch: {
     //     emails: {
@@ -45,6 +60,7 @@ export default {
         onOpenEmail(emailId) {
             console.log('open Email (read) in list')
             this.$emit('openEmail', emailId)
+            this.isListShown = false
         },
 
         onToggleStar() {
@@ -60,7 +76,7 @@ export default {
         onToggleRead() {
             console.log('Read')
             this.$emit('toggleRead', this.email.id)
-        }
+        },
     },
 
     components: {

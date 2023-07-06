@@ -1,28 +1,36 @@
 import { emailService } from '../services/mail.service.js'
 
 export default {
-    props: ['emails'],
+    props: ['emails', 'isListShown'],
+
     template: `
-        <section v-if="email" class="email-details">
-
-            <span class="subject">{{email.subject}}</span>
-            <div class="from">
-                <span class="name">
-                    {{email.from}}
-                </span>
-            </div>
-            <!-- <span class="sent-at">{{formattedTime}}</span> -->
-            <div class="to">
+        <div class="email-details-container">
+            <section v-if="email" class="email-details">
+                
+                <div class="email-subject">{{email.subject}}</div>
+                <div class="email-from">
+                    <span class="email-name">From:
+                        &lt{{email.from}}&gt
+                    </span>
+                </div>
+                <!-- <span class="sent-at">{{formattedTime}}</span> -->
+                <div class="email-to">To:
                     &lt{{email.to}}&gt
-            </div>
-            <pre class="email-body">{{email.body}}</pre>
-            
-            <RouterLink to="/mail">Back to emails</RouterLink>
-
-            <!-- <RouterLink :to="'/mail/' + email.nextEmaild">Next email</RouterLink> |
-            <RouterLink :to="'/mail/' + email.prevEmailId">Prev enail</RouterLink> -->
-
-        </section>
+                </div>
+                <pre class="email-body">{{email.body}}</pre>
+                
+                <RouterLink to="/mail" @click="listShown">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </RouterLink>
+                
+                <!-- <RouterLink :to="'/mail/' + email.nextEmaild">Next email</RouterLink> |
+                <RouterLink :to="'/mail/' + email.prevEmailId">Prev enail</RouterLink> -->
+                <RouterView/>
+                
+            </section>
+        </div>
     `,
 
     data() {
@@ -47,6 +55,9 @@ export default {
     },
 
     methods: {
+        listShown(isListShown) {
+            this.isListShown = !isListShown
+        },
         // loadEmail() {
         //     const { emailId } = this.$route.params
         //     emailService.get(emailId)
