@@ -1,0 +1,9 @@
+.unread-email {
+    background-color: white;
+    font-weight: bold;
+}
+
+.read-email {
+    background-color: #F2F6FC;
+    font-weight: normal;
+}

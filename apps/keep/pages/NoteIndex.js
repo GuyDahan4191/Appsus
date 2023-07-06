@@ -9,7 +9,6 @@ import {
 import NoteList from "../cmps/NoteList.js";
 import AppHeader from "../cmps/AppHeader.js";
 import PinnedNote from "../cmps/PinnedNote.js";
-import { storageService } from "../../../services/async-storage.service.js";
 
 
 export default {
@@ -81,11 +80,6 @@ export default {
         .then((notes) => {
           this.notes = notes;
         });
-    },
-
-    check() {
-      console.log('pinned', this.pinnedNotes);
-      console.log('this.notes', this.notes)
     },
 
     loadPinnedNotes() {

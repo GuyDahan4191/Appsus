@@ -1,0 +1,38 @@
+/* .new-email:hover {
+    transition:
+        box-shadow .08s linear,
+        min-width .15s cubic-bezier(0.4, 0, 0.2, 1);
+} */
+
+.new-email {
+    border-radius: 10px;
+    width: 130px;
+    height: 60px;
+    background-color: #C2E7FF;
+    padding: 10px;
+}
+
+.email-menu ul .line-in-menu {
+    display: flex;
+    align-items: center;
+}
+
+.material-symbols-outlined {
+    padding: 0 20px;
+}
+
+.new-email:hover {
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
+}
+
+.email-menu ul {
+    text-justify: center;
+    background-color: #D3E3FD;
+    margin-right: 10px;
+    border-radius: 0 10px 10px 0;
+
+}
+
+.menu-ots {
+    padding-left: 20px;
+}

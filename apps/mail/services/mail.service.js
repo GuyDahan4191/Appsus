@@ -6,15 +6,17 @@ export const emailService = {
     get,
     put,
     getFilterBy,
+    setFilterBy,
     save,
     remove,
     toggleRead,
     toggleStar,
-    getUnread,
+    getCountUnread,
 }
 
 const EMAIL_KEY = 'emailDB'
 var gFilterBy = { txt: '' }
+let gUnreadCount
 
 const loggedinUser = {
     email: 'guy@appsus.com',
@@ -31,7 +33,26 @@ function query() {
                 const regex = new RegExp(gFilterBy.txt, 'i')
                 emails = emails.filter(email => regex.test(email.subject) || regex.test(email.body))
             }
-            // console.log('emails', emails)
+            if (gFilterBy.status) {
+                switch (gFilterBy.status) {
+                    case 'inbox':
+                        emails = emails.filter(email =>
+                            (email.to === loggedinUser.email) && (email.removedAt === null))
+                        break
+                    // case 'starred':
+                    //     mails = mails.filter(mail => mail.isStarred === true)
+                    //     break
+                    // case 'sent':
+                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt)
+                    //     break
+                    // case 'trash':
+                    //     mails = mails.filter(mail => mail.removedAt !== null)
+                    //     break
+                    // case 'draft':
+                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt === null)
+                    //     break
+                }
+            }
             return emails
         })
 }
@@ -50,7 +71,7 @@ function getFilterBy() {
 
 function setFilterBy(filterBy = {}) {
     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
-    if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
+    // if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
     return gFilterBy
 }
 
@@ -72,12 +93,20 @@ function toggleRead(email) {
     return put(email)
 }
 
-function toggleStar() {
-    // need to be update
+function toggleStar(emailId) {
+    return get(id)
+        .then(email => {
+            console.log('star before:', email.isStar)
+            email.isStar = !email.isStar
+            console.log('star after:', email.isStar)
+            return put(email)
+        })
 }
 
-function getUnread() {
-    // need to be update
+function getCountUnread() {
+    // return query({ menu: 'inbox', txt: '' })
+    //     .then(emails => emails.filter(email => email.isRead === 'false').length)
+    return gUnreadCount
 }
 
 function _createEmails() {
@@ -94,7 +123,6 @@ function _createEmails() {
                 removedAt: null,
                 from: 'momo@momo.com',
                 to: 'user@appsus.com',
-
             },
             {
                 id: 'e102',
@@ -116,6 +144,17 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'koko@koko.com',
+                to: 'user@appsus.com'
+            },
+            {
+                id: 'e104',
+                subject: 'I want to sleep!',
+                body: 'I f*****g hate all of this bugs',
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now(),
+                removedAt: null,
+                from: 'guy@dahan.com',
                 to: 'user@appsus.com'
             }
         ]

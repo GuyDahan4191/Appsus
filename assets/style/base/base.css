@@ -3,7 +3,7 @@
 }
 
 html {
-  
+  font-family: roboto;
 }
 
 body {
@@ -44,8 +44,10 @@ object {
 /* tap targets: */
 nav a,
 button {
-  min-width: 48px;
-  min-height: 48px;
+  /* min-width: 48px;
+  min-height: 48px; */
+  min-width: 1px;
+  min-height: 1px;
 }
 
 /* Simple and useful CSS Debugging Technique */
@@ -56,12 +58,20 @@ button {
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
-  'wght' 550,
+  'wght' 700,
   'GRAD' 0,
-  'opsz' 50
+  'opsz' 40
 }
 
 ul {
   list-style-type: none;
   padding: 0;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
 }

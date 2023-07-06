@@ -10,11 +10,11 @@ export default {
          :is="note.type"
          :info="note.info"
          />
-         
-    <section class="actions">
-       <button @click="onRemoveNote(note.id)">
+
+  <section class="action-btn">
+          <button @click="onRemoveNote(note.id)">
         <span class="material-symbols-outlined">delete</span>
-      </button>
+          </button>
 
        <button @click="this.isColorOpen = !this.isColorOpen">
         <span class="material-symbols-outlined">palette</span>
@@ -27,8 +27,8 @@ export default {
        <button @click="pinNote(note.id)" >
           <span class="material-symbols-outlined">push_pin</span>
        </button>
-    </section>
-
+  </section>
+ 
 
     <section v-if="isColorOpen" class="color-pallte">
       <!-- <div  v-for="(color, idx) in colorOption"
@@ -61,7 +61,7 @@ export default {
         "#ffffff", // white
         "#ffc472", // orange
       ],
-      colorClass:[
+      colorClass: [
         "red",
         "blue",
         "green",
