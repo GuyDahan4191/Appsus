@@ -1,15 +1,22 @@
 export default {
   props: ["info"],
-    template: `
-      <h2>note Img</h2>
-      <img :src="imgUrl" alt="" />
+  template: `
+      <img class="img-preview" :src="imgUrl" alt="" />
       `,
+  data() {
+    return {}
+  },
 
-      computed: {
-        imgUrl() {
-          return this.info.url
-        }
-        
-      }
-  };
-  
+  methods: {
+    onOpenColor(noteId) {
+      alert(noteId)
+    }
+  },
+
+  computed: {
+    imgUrl() {
+      return this.info.url
+    }
+
+  }
+};

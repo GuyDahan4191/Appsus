@@ -1,13 +1,20 @@
 export default {
   template: `
-          <section class="book-filter">
               <input 
+                 class="search"
                   v-model="filterBy.txt" 
                   @input="onSetFilterBy"
                   type="text" 
-                  placeholder="Search By Name">   
+                  placeholder="Search By Name">  
+                  <span class="material-symbols-outlined">search</span> 
+
+              
+                <input  @change="onSetFilterBy" type="radio" value="NoteTxt" v-model="filterBy.noteType"> Text
+                <input  @change="onSetFilterBy" type="radio" value="NoteImg" v-model="filterBy.noteType"> Image
+                <input  @change="onSetFilterBy" type="radio" value="NoteTodos" v-model="filterBy.noteType"> Todos
+                <input  @change="onSetFilterBy" type="radio" value="NoteVideo" v-model="filterBy.noteType"> Video
                 
-            <select 
+            <!-- <select 
             v-model="filterBy.noteType"
             @change="onSetFilterBy"
              >
@@ -16,9 +23,8 @@ export default {
               <option value="NoteImg">Image</option>
               <option value="NoteTodos">Todos</option>
               <option value="NoteVideo">Video</option>
-            </select>
+            </select> -->
             
-          </section>
       `,
   data() {
     return {

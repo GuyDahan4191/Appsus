@@ -8,6 +8,8 @@ export const noteService = {
   save,
   remove,
   getEmptyNote,
+  resetId,
+  setPinNote
 };
 
 const NOTES_KEY = "noteDB";
@@ -20,7 +22,8 @@ const loggedinUser = {
 _createNotes();
 
 function query() {
-  return storageService.query(NOTES_KEY).then((notes) => {
+  return storageService.query(NOTES_KEY)
+  .then((notes) => {
     return notes;
   });
 }
@@ -32,7 +35,7 @@ function getEmptyNote(txt) {
     type: "NoteTxt",
     isPinned: false,
     style: {
-      backgroundColor: "#00d",
+      backgroundColor: "#ffff",
     },
     info: { txt },
   };
@@ -50,6 +53,14 @@ function post(newNote) {
   return storageService.post(NOTES_KEY, newNote);
 }
 
+function resetId(note) {
+  note.id = ''
+}
+
+function setPinNote(note) {
+  note.isPinned = true
+}
+
 function save(note) {
   if (note.id) {
     return storageService.put(NOTES_KEY, note);
@@ -63,31 +74,31 @@ function _createNotes() {
   if (!notes || !notes.length) {
     const notes = [
       {
+        id: "n101",
+        createdAt: 1112222,
+        type: "NoteTxt",
+        isPinned: false,
+        style: {
+          backgroundColor: "#ffff",
+        },
+        info: {
+          txt: "Keep Going!!",
+        },
+      },
+      {
+        id: "102",
+        createdAt: 1112222,
+        type: "NoteTxt",
+        isPinned: false,
+        style: {
+          backgroundColor: "#ffff",
+        },
+        info: {
+          txt: "Keep Going!!",
+        },
+      },
+      {
         id: "n103",
-        createdAt: 1112222,
-        type: "NoteTxt",
-        isPinned: true,
-        style: {
-          backgroundColor: "#00d",
-        },
-        info: {
-          txt: "Keep Going!!",
-        },
-      },
-      {
-        id: "n106",
-        createdAt: 1112222,
-        type: "NoteTxt",
-        isPinned: true,
-        style: {
-          backgroundColor: "#00d",
-        },
-        info: {
-          txt: "Keep Going!!",
-        },
-      },
-      {
-        id: "n102",
         type: "NoteImg",
         isPinned: false,
         info: {
@@ -95,14 +106,17 @@ function _createNotes() {
           title: "Bobi and Me",
         },
         style: {
-          backgroundColor: "#00d",
+          backgroundColor: "#ffff",
         },
       },
 
       {
-        id: "n103",
+        id: "n104",
         type: "NoteTodos",
         isPinned: false,
+        style: {
+          backgroundColor: "#ffff",
+        },
         info: {
           title: "Get my stuff together",
           todos: [

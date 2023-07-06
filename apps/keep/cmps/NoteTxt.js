@@ -1,8 +1,9 @@
 export default {
-  props: ['info'],
+  props: ["info"],
 
     template: `
-      <h2>{{ info.txt }}</h2>
+      <h2 class="user-text">{{ info.txt }}</h2>
+    </div>
       `,
     components: {},
   };

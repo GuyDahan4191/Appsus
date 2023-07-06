@@ -4,29 +4,32 @@ export default {
   props: ["notes"],
   template: `
 
-<section class="note-list">
- <ul>
-   <li v-for="note in notes" :key="note.id">
-     
-     <section class="actions">
-       <button @click="onRemoveNote(note.id)">X</button>|
-      </section>
-     <NotePreview :note="note" />
-   </li>
- </ul>
-        </section>
+   <section class="note-list">
+       <ul >
+         <li 
+          v-for="note in notes" :key="note.id"
+          :style="{'background-color':note.style.backgroundColor}">
+           <NotePreview :note="note"
+            @remove="$emit('remove', $event)"
+            @setColor="setBgColor" 
+            @duplicate="$emit('duplicate', $event)"
+            @pin="$emit('pin', $event)"
+            />
+         </li>
+       </ul>
+   </section>
     `,
-    data() {
-      return {
-        colorOpen: false
-      }
-    },
-
+  data() {
+    return {
+      selectedNote: null,
+    }
+  },
   methods: {
-    onRemoveNote(noteId) {
-      this.$emit("remove", noteId);
+    setBgColor(color, noteId) {
+      this.$emit("setColor", color, noteId);
     },
   },
+
   components: {
     NotePreview,
   },
