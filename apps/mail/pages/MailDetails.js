@@ -11,7 +11,7 @@ export default {
                     {{email.from}}
                 </span>
             </div>
-            <span class="sent-at">{{formattedTime}}</span>
+            <!-- <span class="sent-at">{{formattedTime}}</span> -->
             <div class="to">
                     &lt{{email.to}}&gt
             </div>

@@ -32,6 +32,10 @@
     grid-template-rows: 2/3; */
 }
 
+.email-list ul {
+    position: relative;
+}
+
 .email-preview-info {
     display: grid;
     width: 100%;
@@ -75,4 +79,18 @@
     background-color: lightblue;
     font-weight: bold;
     
+} */
+
+/* .email-index {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 50px auto;
+    grid-template-areas:
+        "menu   search"
+        "menu   details";
+    padding: 10px;
+}
+
+.email-details {
+    grid-area: details;
 } */

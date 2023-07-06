@@ -16,6 +16,7 @@ export const emailService = {
 
 const EMAIL_KEY = 'emailDB'
 var gFilterBy = { txt: '' }
+let gUnreadCount
 
 const loggedinUser = {
     email: 'guy@appsus.com',
@@ -84,8 +85,9 @@ function toggleStar(emailId) {
 }
 
 function getCountUnread() {
-    return query({ menu: 'inbox', txt: '' })
-        .then(emails => emails.filter(email => email.isRead === 'false').length)
+    // return query({ menu: 'inbox', txt: '' })
+    //     .then(emails => emails.filter(email => email.isRead === 'false').length)
+    return gUnreadCount
 }
 
 function _createEmails() {

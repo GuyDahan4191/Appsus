@@ -1,0 +1,6 @@
+.email-details {
+    margin: 20px;
+    position: relative;
+    padding: 10px;
+    background-color: var(--turquise);
+}

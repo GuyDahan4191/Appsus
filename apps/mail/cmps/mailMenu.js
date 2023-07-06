@@ -1,5 +1,5 @@
 export default {
-    props: ['emails'],
+    props: ['emails', ''],
     template: `
 
         <section class="email-menu">
@@ -8,8 +8,8 @@ export default {
                 <li class="inbox" @click="onSelectFilter">
                     <RouterLink to="/mail/inbox">
                         <div class="inbox-container" >
-                            Inbox
-                            <!-- <span>{{ unreadCount }}</span> -->
+                            <span class="material-symbols-rounded"> 
+                            </span>Inbox
                         </div>
                     </RouterLink>
                 </li>
@@ -23,10 +23,7 @@ export default {
     `,
 
     computed: {
-        unreadCount() {
-            // console.log('unreadCount:', this.emails.filter(email => !email.isRead).length)
-            return this.emails.filter(email => !email.isRead).length
-        },
+
     },
 
     methods: {

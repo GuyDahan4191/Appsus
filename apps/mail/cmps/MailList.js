@@ -2,6 +2,7 @@ import EmailPreview from './MailPreview.js'
 import { emailService } from '../services/mail.service.js'
 
 export default {
+    name: 'EmailList',
     props: ['emails'],
     template: `
         <section class="email-list">
@@ -27,12 +28,11 @@ export default {
         }
     },
 
-    watch: {
-        emails: {
-            immediate: true,
-            handler(emailList) { },
-        },
-    },
+    // watch: {
+    //     emails: {
+    //         immediate: true,
+    //     },
+    // },
 
     created() {
         // emailService.query()
