@@ -61,37 +61,37 @@ export default {
         },
 
         openEmail(emailId) {
-            emailService.get(emailId)
-                .then(email => {
-                    if (!email.isRead) {
-                        email.isRead = true
-                        console.log('after open email:', email)
-                        return emailService.save(email)
-                    }
-                })
-                // console.log('open Email (read) in index')
-                .then(savedEmail => {
-                    console.log('savedEmail', savedEmail)
-                    showSuccessMsg('Email marked as Read')
-                })
-                .catch(err => {
-                    // showErrorMsg('Cannot mark email as read')
-                })
+            // emailService.get(emailId)
+            //     .then(email => {
+            //         if (!email.isRead) {
+            //             email.isRead = true
+            //             console.log('after open email:', email)
+            //             return emailService.save(email)
+            //         }
+            //     })
+            //     // console.log('open Email (read) in index')
+            //     .then(savedEmail => {
+            //         console.log('savedEmail', savedEmail)
+            //         showSuccessMsg('Email marked as Read')
+            //     })
+            //     .catch(err => {
+            //         // showErrorMsg('Cannot mark email as read')
+            //     })
+            // },
+
+            const email = this.emails.find(email => email.id === emailId)
+            email.isRead = true
+
+            console.log('emailId:', emailId)
+            // console.log('email:', email)
+            // console.log('this.emails:', this.emails)
+
+            emailService.save(email)
+                .then(email => this.email = email)
+            console.log('email after save:', email)
+            this.$router.push({ component: 'MailDetails', params: { emailId } })
+            console.log('emailId:', emailId)
         },
-
-        // const email = this.emails.find(email => email.id === emailId)
-        // email.isRead = true
-
-        // console.log('emailId:', emailId)
-        // console.log('email:', email)
-        // console.log('this.emails:', this.emails)
-
-        // emailService.save(email)
-        //     .then(email => this.email = email)
-        // console.log('email after save:', email)
-        // this.$router.push({ component: 'MailDetails', params: { emailId } })
-        // console.log('emailId:', emailId)
-        // },
 
         toggleRead() {
             console.log('Read')

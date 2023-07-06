@@ -42,10 +42,6 @@ export default {
     },
 
     methods: {
-        // onOpenEmail() {
-        //     console.log('open Email (read) in list')
-        //     this.$emit('open', this.email)
-        // },
         onOpenEmail(emailId) {
             console.log('open Email (read) in list')
             this.$emit('openEmail', emailId)
