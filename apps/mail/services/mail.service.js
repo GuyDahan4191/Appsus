@@ -50,9 +50,9 @@ function query() {
                         emails = emails.filter(email =>
                             (email.to === loggedinUser.email) && (!email.removedAt))
                         break
-                    // case 'starred':
-                    //     mails = mails.filter(mail => mail.isStarred === true)
-                    //     break
+                    case 'starred':
+                        emails = emails.filter(email => email.isStarred === true)
+                        break
                     case 'sent':
                         emails = emails.filter(email =>
                             (email.from === loggedinUser.email))
@@ -62,7 +62,7 @@ function query() {
                         emails = emails.filter(email => email.removedAt)
                         break
                     // case 'draft':
-                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.status === 'draft')
+                    //     emails = emails.filter(mail => email.from === loggedinUser.email && email.folder === 'draft')
                     //     break
                 }
             }

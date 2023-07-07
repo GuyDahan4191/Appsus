@@ -79,14 +79,6 @@
     background-color: white;
 }
 
-.star-true {
-    background-color: yellow;
-}
-
-.star-false {
-    background-color: none;
-}
-
 .name {
     overflow: hidden;
     white-space: nowrap;
@@ -112,5 +104,20 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 100%;
+}
 
+.star-true .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 0,
+        'opsz' 40
+}
+
+.yellow {
+    color: yellow;
+}
+
+.star-false {
+    background-color: none;
 }

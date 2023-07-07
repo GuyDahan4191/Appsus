@@ -25,7 +25,7 @@ export default {
                 @toggleRead="toggleRead"
                 />
             <ComposeMail @send="send" v-if="isCompose"/>
-            <RouterView :emails="emails"/>
+            <RouterView :emails="emails" @star="onStar"/>
         </section>
     `,
 
@@ -35,7 +35,7 @@ export default {
             filterBy: {
                 menu: 'inbox',
                 txt: '',
-                // isStared: false,
+                isStared: false,
                 // isRead: 'all',
             },
             isCompose: false,
@@ -158,6 +158,11 @@ export default {
                 .catch(err => {
                     showErrorMsg('Cannot mark email as read')
                 })
+        },
+
+        onStar(emailId) {
+            emailService.toggleStar(emailId)
+                .then(() => this.loadEmails())
         },
     },
 

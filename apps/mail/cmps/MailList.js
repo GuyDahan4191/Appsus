@@ -4,7 +4,7 @@ import { emailService } from '../services/mail.service.js'
 export default {
     name: 'EmailList',
     props: ['emails'],
-    // emit: ['isListShown'],
+    emit: ['star'],
 
     template: `
         <section class="email-list">
@@ -13,7 +13,8 @@ export default {
                 <li v-for="email in emails" :key="email.id">
                         <EmailPreview 
                             :email="email"
-                            @click="onOpenEmail(email.id)"
+                            @click.stop="onOpenEmail(email.id)"
+                            @star="onStar"
                         />
                     
                     <div class="actions">
@@ -41,8 +42,8 @@ export default {
             this.$emit('openEmail', emailId)
         },
 
-        onToggleStar() {
-            console.log('Star')
+        onStar() {
+            console.log('Star list')
             this.$emit('star', this.email.id)
         },
 

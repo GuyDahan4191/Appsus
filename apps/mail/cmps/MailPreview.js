@@ -2,6 +2,7 @@
 export default {
     name: 'EmailPreview',
     props: ['email'],
+    emit: ['star'],
     template: `
         <RouterLink :to="'/mail/' + email.id">
             <article class="email-preview-container"
@@ -11,7 +12,7 @@ export default {
                 <div class="email-preview-info">
                     <div class="line-boxes">
                         <input type="checkbox" class="line-checkbox">
-                        <div @click="onStar" class="star" 
+                        <div @click.stop="onStar" class="star" 
                             :class="{'star-true': email.isStar,
                                 'star-false': !email.isStar}">
                             <span class="material-symbols-outlined">star</span>
@@ -37,16 +38,11 @@ export default {
     methods: {
         onStar() {
             this.email.isStar = !this.email.isStar
-            this.$emit('starred', this.email)
+            this.$emit('star', this.email.id)
         },
     },
 
     computed: {
-        isRead() {
-            console.log('mail is read')
-            return { 'read': this.email.isRead === 'read' }
-        },
-
         readableTime() {
             // if not today
             let formation = {
