@@ -8,40 +8,36 @@ export default {
                 :class="{'unread-email': !email.isRead,
                 'read-email': email.isRead}">
 
-                <!-- @click="onToggleRead" :class="isRead"> -->
-                <!-- <input type="checkBox" @click="onStar" title="Add/Remove star">
-                            <span :class="['star-icon']">&starf;</span> -->
-                    <!-- <div  @click="onStar" class="star-icon" :class="starState"></div> -->
-                    <!-- <div class="rating-stars">
-                        <span class="star" @click="onStar">
-                            <span :class="['star-icon', 'selected']">&starf;</span>
-                        </span>
-                    </div> -->
-
                 <div class="email-preview-info">
-                    <span class="name">{{email.from}}</span>
-                    <div>
-                        <span class="subject">{{email.subject}}</span>
-                        - 
-                        <span class="body">{{email.body}}</span>
+                    <div class="line-boxes">
+                        <input type="checkbox" class="line-checkbox">
+                        <div @click="onStar" class="star" 
+                            :class="{'star-true': email.isStar,
+                                'star-false': !email.isStar}">
+                            <span class="material-symbols-outlined">star</span>
+                        </div>
                     </div>
-                    <span class="sent-at">{{readableTime}}</span>
+                    <div class="line-preview">
+                        <span class="name">{{email.from}}</span>
+                        <div class="subject-body">
+                            <span class="subject">{{email.subject}}</span>
+                            - 
+                            <span class="body">{{email.body}}</span>
+                        </div>
+                        <span class="sent-at">{{readableTime}}</span>
+                    </div>
                 </div>
             </article>
         </RouterLink>
     `,
 
     created() {
-
     },
 
     methods: {
-        onToggleRead() {
-            this.$emit('toggleRead', this.email.id)
-        },
-
         onStar() {
-            return this.email.isStar ? false : true
+            this.email.isStar = !this.email.isStar
+            this.$emit('starred', this.email)
         },
     },
 

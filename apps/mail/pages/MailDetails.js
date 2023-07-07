@@ -1,36 +1,29 @@
 import { emailService } from '../services/mail.service.js'
 
 export default {
-    props: ['emails', 'isListShown'],
-
+    props: ['emails'],
     template: `
-        <div class="email-details-container">
-            <section v-if="email" class="email-details">
-                
-                <div class="email-subject">{{email.subject}}</div>
-                <div class="email-from">
-                    <span class="email-name">From:
-                        &lt{{email.from}}&gt
-                    </span>
-                </div>
-                <!-- <span class="sent-at">{{formattedTime}}</span> -->
-                <div class="email-to">To:
+        <section v-if="email" class="email-details-container">
+
+            <span class="email-subject">{{email.subject}}</span>
+            <div class="email-from">
+                <span class="email-name">
+                    {{email.from}}
+                </span>
+            </div>
+            <!-- <span class="sent-at">{{formattedTime}}</span> -->
+            <div class="email-to">
                     &lt{{email.to}}&gt
-                </div>
-                <pre class="email-body">{{email.body}}</pre>
-                
-                <RouterLink to="/mail" @click="listShown">
-                    <span class="material-symbols-outlined">
-                        arrow_back
-                    </span>
-                </RouterLink>
-                
-                <!-- <RouterLink :to="'/mail/' + email.nextEmaild">Next email</RouterLink> |
-                <RouterLink :to="'/mail/' + email.prevEmailId">Prev enail</RouterLink> -->
-                <RouterView/>
-                
-            </section>
-        </div>
+            </div>
+            <pre class="email-body">{{email.body}}</pre>
+            
+            <RouterLink to="/mail">Back to emails</RouterLink>
+
+            <!-- <RouterLink :to="'/mail/' + email.nextEmaild">Next email</RouterLink> |
+            <RouterLink :to="'/mail/' + email.prevEmailId">Prev enail</RouterLink> -->
+            <RouterView/>
+
+        </section>
     `,
 
     data() {
@@ -55,9 +48,6 @@ export default {
     },
 
     methods: {
-        listShown(isListShown) {
-            this.isListShown = !isListShown
-        },
         // loadEmail() {
         //     const { emailId } = this.$route.params
         //     emailService.get(emailId)

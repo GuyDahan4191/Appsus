@@ -17,12 +17,12 @@ export default {
                         />
                     
                     <div class="actions">
-                        <span class="btn" @click="onRemoveEmail(email.id)" title="Remove" class="material-symbols-outlined">
+                        <span @click="onRemoveEmail(email.id)" title="Remove" class="btn material-symbols-outlined">
                             delete
                         </span>
                         
-                        <span class="btn" @click="onToggleRead" title="Mark as read/unread" class="material-symbols-outlined">
-                        drafts
+                        <span @click="onToggleRead(email.id)" title="Mark as read/unread" class="btn material-symbols-outlined">
+                            drafts
                         </span>
                     </div>
                 </li>
@@ -32,35 +32,13 @@ export default {
 
     data() {
         return {
-            isListShown: true
         }
-    },
-
-    // data() {
-    //     return {
-    //         isListShown = true        
-    //         // emails: []
-    //     }
-    // },
-
-    // watch: {
-    //     emails: {
-    //         immediate: true,
-    //     },
-    // },
-
-    created() {
-        // emailService.query()
-        //     .then(emails => {
-        //         this.emails = emails
-        //     })
     },
 
     methods: {
         onOpenEmail(emailId) {
             console.log('open Email (read) in list')
             this.$emit('openEmail', emailId)
-            this.isListShown = false
         },
 
         onToggleStar() {
@@ -73,9 +51,9 @@ export default {
             this.$emit('remove', emailId)
         },
 
-        onToggleRead() {
-            console.log('Read')
-            this.$emit('toggleRead', this.email.id)
+        onToggleRead(emailId) {
+            console.log('toggle Read')
+            this.$emit('toggleRead', emailId)
         },
     },
 

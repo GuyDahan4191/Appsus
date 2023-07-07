@@ -15,13 +15,14 @@ export default {
                 edit
                 </span>Compose</button>
 
-            <EmailFilter @filter="setFilterBy"/>
+            <EmailFilter @filterTxt="setFilterBy"/>
             <EmailMenu @filterByMenu="onFilterByMenu" :emails="emails"/>
             <EmailList
                 v-if="emails"
                 :emails="filteredEmails" 
                 @remove="removeEmail"
                 @openEmail="openEmail"
+                @toggleRead="toggleRead"
                 />
             <ComposeMail @send="send" v-if="isCompose"/>
             <RouterView :emails="emails"/>
@@ -55,10 +56,20 @@ export default {
             filteredEmails = filteredEmails.filter(email => regex.test(email.subject) || regex.test(email.body) || regex.test(email.from))
             return filteredEmails
         },
+
+        getBtnUnreadClass() {
+            return this.filteredBy.isUnread ? 'btn-unread-on' : ''
+        },
     },
 
     methods: {
+        loadEmails() {
+            emailService.query(this.filterBy)
+                .then(emails => this.emails = emails)
+        },
+
         removeEmail(emailId) {
+            console.log('1:')
             emailService.remove(emailId)
                 .then(() => {
                     const idx = this.emails.findIndex(email => email.id === emailId)
@@ -80,6 +91,7 @@ export default {
                         return emailService.save(email)
                     }
                 })
+                .then(this.loadEmails)
                 // console.log('open Email (read) in index')
                 //     .then(savedEmail => {
                 //         console.log('savedEmail', savedEmail)
@@ -91,8 +103,10 @@ export default {
         },
 
         onFilterByMenu(filter) {
-            emailService.setFilterBy({ status: filter })
-            this.getEmails()
+            console.log('filter in index:', filter)
+            emailService.setFilterBy({ folder: filter })
+            emailService.query()
+                .then(emails => this.emails = emails)
         },
 
         getEmails() {
@@ -100,12 +114,8 @@ export default {
                 .then(emails => this.emails = emails)
         },
 
-        toggleRead() {
-            console.log('Read')
-            this.$emit('toggleRead', this.email.id)
-        },
-
         setFilterBy(filterBy) {
+            console.log('filterBY:', filterBy)
             this.filterBy.txt = filterBy.txt
             console.log('filterBy.txt:', this.filterBy.txt)
         },
@@ -131,6 +141,23 @@ export default {
         toggleCompose() {
             console.log('new messege:')
             this.isCompose = !this.isCompose
+        },
+
+        toggleRead(emailId) {
+            emailService.get(emailId)
+                .then(email => {
+                    email.isRead = !email.isRead
+                    return emailService.save(email)
+                })
+                .then(this.loadEmails)
+                // console.log('open Email (read) in index')
+                //     .then(savedEmail => {
+                //         console.log('savedEmail', savedEmail)
+                //         showSuccessMsg('Email marked as Read')
+                //     })
+                .catch(err => {
+                    showErrorMsg('Cannot mark email as read')
+                })
         },
     },
 

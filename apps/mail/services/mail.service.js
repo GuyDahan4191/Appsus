@@ -15,12 +15,22 @@ export const emailService = {
 }
 
 const EMAIL_KEY = 'emailDB'
-var gFilterBy = { txt: '' }
+var gFilterBy = {
+    txt: '',
+    folder: 'inbox',
+    isRead: false,
+
+}
+
 let gUnreadCount
 
 const loggedinUser = {
     email: 'guy@appsus.com',
     fullname: 'Guy Dahan'
+}
+let gSortBy = {
+    type: 'sentAt',
+    order: true
 }
 
 _createEmails()
@@ -33,14 +43,39 @@ function query() {
                 const regex = new RegExp(gFilterBy.txt, 'i')
                 emails = emails.filter(email => regex.test(email.subject) || regex.test(email.body))
             }
-            if (gFilterBy.status) {
-                switch (gFilterBy.status) {
+            if (gFilterBy.folder) {
+                console.log('gFilterBy.folder:', gFilterBy.folder)
+                switch (gFilterBy.folder) {
                     case 'inbox':
                         emails = emails.filter(email =>
-                            (email.to === loggedinUser.email) && (email.removedAt === null))
+                            (email.to === loggedinUser.email) && (!email.removedAt))
                         break
+                    // case 'starred':
+                    //     mails = mails.filter(mail => mail.isStarred === true)
+                    //     break
+                    case 'sent':
+                        emails = emails.filter(email =>
+                            (email.from === loggedinUser.email))
+                        // && email.sentAt && email.folder !== 'draft'))
+                        break
+                    case 'trash':
+                        emails = emails.filter(email => email.removedAt)
+                        break
+                    // case 'draft':
+                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.status === 'draft')
+                    //     break
                 }
             }
+            // emails.sort((a, b) => {
+            //     if (gSortBy.type === 'sentAt') {
+            //         if (a[gSortBy.type] < b[gSortBy.type]) return gSortBy.order ? 1 : -1
+            //         if (a[gSortBy.type] > b[gSortBy.type]) return gSortBy.order ? -1 : 1
+            //     } else {
+            //         if (a[gSortBy.type] < b[gSortBy.type]) return gSortBy.order ? -1 : 1
+            //         if (a[gSortBy.type] > b[gSortBy.type]) return gSortBy.order ? 1 : -1
+            //     }
+            //     return 0
+            // })
             return emails
         })
 }
@@ -58,7 +93,11 @@ function getFilterBy() {
 }
 
 function setFilterBy(filterBy = {}) {
+    console.log('1:')
     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
+    console.log('2:')
+    if (filterBy.folder !== undefined) gFilterBy.folder = filterBy.folder
+    console.log('filterBy.folder:', filterBy.folder)
     // if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
     return gFilterBy
 }
@@ -72,7 +111,15 @@ function save(email) {
 }
 
 function remove(emailId) {
-    return storageService.remove(EMAIL_KEY, emailId)
+    return get(emailId)
+        .then(email => {
+            if (email.removedAt) {
+                return storageService.remove(EMAIL_KEY, emailId)
+            }
+            email.removedAt = Date.now()
+            email.isStar = false
+            put(email)
+        })
 }
 
 function toggleRead(email) {
@@ -110,7 +157,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
             },
             {
                 id: 'e102',
@@ -121,7 +169,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'jojo@jojo.com',
-                to: 'user@appsus.com'
+                to: 'guy@appsus.com',
+                folder: 'inbox'
             },
             {
                 id: 'e103',
@@ -132,7 +181,8 @@ function _createEmails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'koko@koko.com',
-                to: 'user@appsus.com'
+                to: 'guy@appsus.com',
+                folder: 'trash'
             },
             {
                 id: 'e104',
@@ -142,8 +192,9 @@ function _createEmails() {
                 isStar: false,
                 sentAt: Date.now(),
                 removedAt: null,
-                from: 'guy@dahan.com',
-                to: 'user@appsus.com'
+                from: 'guy@appsus.com',
+                to: 'shay@zigdon.com',
+                folder: 'sent'
             }
         ]
         utilService.save(EMAIL_KEY, emails);

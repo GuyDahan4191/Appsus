@@ -38,19 +38,6 @@
     grid-template-rows: 2/3; */
 }
 
-.email-list ul {
-    position: relative;
-}
-
-.email-preview-info {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 200px 1fr 70px;
-    grid-template-rows: 50px;
-    grid-auto-flow: column;
-    height: 30px;
-}
-
 .email-menu li {
     grid-area: menu;
     border-radius: 0 15px 15px 0;

@@ -4,28 +4,31 @@ export default {
 
         <section class="email-menu">
             <ul>
-                <li class="line-in-menu" @click="onSelectFilter">
+                <li class="line-in-menu" @click="onSetFilter('inbox')">
                     <span class="material-symbols-outlined">
                     inbox
-                    </span class="menu-ops"> Inbox <span> ({{unreadCount}})</span>
+                    </span>Inbox <span> ({{unreadCount}})</span>
                 </li>
-                
-                <li class="line-in-menu" @click="onSelectFilter">
+                <li class="line-in-menu" @click="onSetFilter('starred')">
                     <span class="material-symbols-outlined">
                     star
-                    </span>Starred <span></span></li>
-                <li class="line-in-menu" @click="onSelectFilter">
+                    </span>Starred <span></span>
+                </li>
+                <li class="line-in-menu" @click="onSetFilter('sent')">
                     <span class="material-symbols-outlined">
                     send
-                    </span>Sent <span></span></li>
-                <li class="line-in-menu" @click="onSelectFilter">
+                    </span>Sent <span></span>
+                </li>
+                <li class="line-in-menu" @click="onSetFilter('draft')">
                     <span class="material-symbols-outlined">
                     draft
-                    </span>Draft <span></span></li>
-                <li class="line-in-menu" @click="onSelectFilter">
+                    </span>Draft <span> </span>
+                </li>
+                <li class="line-in-menu" @click="onSetFilter('trash')">
                     <span class="material-symbols-outlined">
                     delete
-                    </span>Trash <span></span></li>
+                    </span>Trash <span></span>
+                </li>
             </ul>
         </section>
     `,
@@ -38,8 +41,9 @@ export default {
     },
 
     methods: {
-        onSelectFilter(filter) {
-            this.$emit('filter', filter)
+        onSetFilter(filter) {
+            console.log('filter:', filter)
+            this.$emit('filterByMenu', filter)
             this.$router.push('/mail')
         },
     },
