@@ -8,7 +8,6 @@ export default {
                 :class="{'unread-email': !email.isRead,
                 'read-email': email.isRead}">
 
-
                 <!-- @click="onToggleRead" :class="isRead"> -->
                 <!-- <input type="checkBox" @click="onStar" title="Add/Remove star">
                             <span :class="['star-icon']">&starf;</span> -->

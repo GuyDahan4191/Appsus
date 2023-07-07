@@ -39,18 +39,6 @@ function query() {
                         emails = emails.filter(email =>
                             (email.to === loggedinUser.email) && (email.removedAt === null))
                         break
-                    // case 'starred':
-                    //     mails = mails.filter(mail => mail.isStarred === true)
-                    //     break
-                    // case 'sent':
-                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt)
-                    //     break
-                    // case 'trash':
-                    //     mails = mails.filter(mail => mail.removedAt !== null)
-                    //     break
-                    // case 'draft':
-                    //     mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt === null)
-                    //     break
                 }
             }
             return emails
