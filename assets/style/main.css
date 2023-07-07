@@ -29,4 +29,5 @@
 @import 'apps/note/NoteIndex.css';
 @import 'apps/note/NoteIndex.css';
 @import 'apps/note/NoteList.css';
-@import '../style/apps/note/appHeader.css';
+@import 'apps/note/appHeader.css';
+@import 'apps/note/SideBar.css';

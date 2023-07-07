@@ -1,7 +1,10 @@
 export default {
   props: ["info"],
   template: `
-      <img class="img-preview" :src="imgUrl" alt="" />
+  <div className="img-conteiner">
+    <h2> {{ info.title }}</h2>
+    <img class="img-preview" :src="imgUrl" alt="" />
+  </div>
       `,
   data() {
     return {}

@@ -10,7 +10,7 @@ export default {
             
             <div className="search-container">
            <NoteFilter
-           @filter="$emit('filter', $event)"
+           @filterByTxt="$emit('filterByTxt', $event)"
            />
            </div>
 

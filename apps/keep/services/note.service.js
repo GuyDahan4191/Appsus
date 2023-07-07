@@ -109,7 +109,18 @@ function _createNotes() {
           backgroundColor: "#ffff",
         },
       },
-
+      {
+        id: "n103",
+        type: "NoteVideo",
+        isPinned: false,
+        info: {
+          url: "https://www.youtube.com/watch?v=HjOTyTXBb9s",
+          title: "Coding",
+        },
+        style: {
+          backgroundColor: "#ffff",
+        },
+      },
       {
         id: "n104",
         type: "NoteTodos",

@@ -1,4 +1,8 @@
 
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
 .add-note {
   display: flex;
   justify-content: center;

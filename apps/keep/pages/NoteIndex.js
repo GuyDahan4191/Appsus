@@ -9,15 +9,23 @@ import {
 import NoteList from "../cmps/NoteList.js";
 import AppHeader from "../cmps/AppHeader.js";
 import PinnedNote from "../cmps/PinnedNote.js";
+import SideBar from "../cmps/SideBar.js";
 
 
 export default {
   template: `
           <AppHeader
-          @filter="setFilterBy"
+          @filterByTxt="setFilterByTxt"
            />
+
+           <div className="side-bar-conteiner">
+           <SideBar 
+           @filterByType="setFilterByType"
+           />
+           
+           <div className="main-content">
           <form @submit.prevent="saveNote" class="add-note">
-          <input id="user-input" v-model="noteToEdit.info.txt" type="text" placeholder="Take a note...">
+          <input @change="check" id="user-input" v-model="noteToEdit.info.txt" type="text" placeholder="Take a note...">
            <button>Save</button>
 
             <select v-model="noteType" >
@@ -27,23 +35,46 @@ export default {
               <option>NoteVideo</option>
             </select>
        </form>
-      <!-- <PinnedNote 
-        :pinnedNotes="pinnedNotes"
-      /> -->
+     
+       <h2
+       v-if="isFilterMode"
+       >Search</h2>
 
        <NoteList
        @openColor="openColor"
        v-if="notes"
-       :notes="pinnedNotes" 
+       v-if="isFilterMode"
+       :notes="filteredNotes" 
        @remove="removeNote"  
        @setColor="setBgColor" 
        @duplicate="duplicateNote" 
        @pin="pinNote" 
        />
 
+<!-- pinned -->
+      <h2
+      v-if="!isFilterMode"
+      >Pinned</h2>
+
        <NoteList
        @openColor="openColor"
        v-if="notes"
+       v-if="!isFilterMode"
+       :notes="pinnedNotes" 
+       @remove="removeNote"  
+       @setColor="setBgColor" 
+       @duplicate="duplicateNote" 
+       @pin="pinNote" 
+       />
+<!-- others -->
+      <h2
+      v-if="!isFilterMode"
+      >Others</h2>
+
+       <NoteList
+       @openColor="openColor"
+       v-if="notes"
+       v-if="!isFilterMode"
        :notes="otherNotes" 
        @remove="removeNote"  
        @setColor="setBgColor" 
@@ -51,14 +82,15 @@ export default {
        @pin="pinNote" 
        />
 
-       <button @click="check" ></button>
-
        <NoteColor :note ="selectedNote" />
+        </div>
+       </div>
        
     `,
   created() {
     this.loadNotes(),
       this.loadPinnedNotes()
+    document.addEventListener('click', this.handleClick);
   },
 
   data() {
@@ -71,6 +103,7 @@ export default {
       noteToEdit: noteService.getEmptyNote(),
       noteType: "",
       selectedNote: null,
+      isFilterMode: false
     };
   },
 
@@ -90,6 +123,10 @@ export default {
         });
     },
 
+    handleClick() {
+      this.isFilterMode = false;
+    },
+
     removeNote(noteId) {
       noteService.remove(noteId)
         .then(() => {
@@ -107,9 +144,14 @@ export default {
       });
     },
 
-    setFilterBy(filterBy) {
-      this.filterBy.txt = filterBy.txt;
-      this.filterBy.noteType = filterBy.noteType;
+    setFilterByTxt(filterBy) {
+      this.isFilterMode = true
+      this.filterBy.txt = filterBy;
+    },
+
+    setFilterByType(filterBy) {
+      this.isFilterMode = true
+      this.filterBy.noteType = filterBy;
     },
 
     setBgColor(color, noteId) {
@@ -143,6 +185,7 @@ export default {
           note.type.includes(this.filterBy.noteType) &&
           byName.test(note.info.txt)
       );
+
     },
     pinnedNotes() {
       return this.notes.filter(note => note.isPinned)
@@ -155,6 +198,7 @@ export default {
   components: {
     AppHeader,
     NoteList,
-    PinnedNote
+    PinnedNote,
+    SideBar
   },
 };
