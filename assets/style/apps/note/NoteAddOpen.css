@@ -1,0 +1,44 @@
+.note-conteiner {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 2em;
+}
+
+.note {
+    position: relative;
+    width: 600px;
+    height: 160px;
+    border-radius: 0.5em;
+    padding: 1em;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.275);
+}
+
+.note .title input {
+    border: none;
+    font-size: 1.1em;
+    padding: 0.3em;
+    color: rgb(108, 108, 108);
+    width: 100%;
+}
+
+.note .text input {
+    width: 100%;
+    border: none;
+    font-size: 1.1em;
+    margin-block-start: 0.5em;
+    padding: 0.9em 0.2em;
+    font-weight: 600;
+    color: rgb(108, 108, 108);
+}
+
+.note .buttons {
+    /* position: absolute; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-start: 1em;
+    padding: 0 0.2em;
+}
+ h5 {
+    margin: 0;
+ }

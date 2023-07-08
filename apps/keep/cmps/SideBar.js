@@ -1,7 +1,7 @@
 export default {
     template: `
       <div className="side-bar-conteiner">
-        <ul>
+        <ul class="side-bar-list">
           <li @click="onSetFilterByType('NoteTxt', $event)">
             <span class="material-symbols-outlined">title</span>Text
           </li>
@@ -9,10 +9,10 @@ export default {
             <span class="material-symbols-outlined">image</span>Image
           </li>
           <li @click="onSetFilterByType('NoteTodos', $event)">
-            <span class="material-symbols-outlined">checklist</span>Todos
+          <span class="material-symbols-outlined">check_box</span>Todos
           </li>
           <li @click="onSetFilterByType('NoteVideo', $event)">
-            <span class="material-symbols-outlined">play_circle</span>Video
+          <span class="material-symbols-outlined">videocam</span>Video
           </li>
         </ul>
       </div>

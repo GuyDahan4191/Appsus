@@ -23,21 +23,21 @@ _createNotes();
 
 function query() {
   return storageService.query(NOTES_KEY)
-  .then((notes) => {
-    return notes;
-  });
+    .then((notes) => {
+      return notes;
+    });
 }
 
-function getEmptyNote(txt) {
+function getEmptyNote() {
   return {
     id: "",
     createdAt: 122333,
-    type: "NoteTxt",
+    type: "",
     isPinned: false,
     style: {
       backgroundColor: "#ffff",
     },
-    info: { txt },
+    info: {},
   };
 }
 
@@ -82,11 +82,12 @@ function _createNotes() {
           backgroundColor: "#ffff",
         },
         info: {
+          title:"",
           txt: "Keep Going!!",
         },
       },
       {
-        id: "102",
+        id: "n102",
         createdAt: 1112222,
         type: "NoteTxt",
         isPinned: false,
@@ -94,6 +95,7 @@ function _createNotes() {
           backgroundColor: "#ffff",
         },
         info: {
+          title:"",
           txt: "Keep Going!!",
         },
       },
@@ -110,7 +112,7 @@ function _createNotes() {
         },
       },
       {
-        id: "n103",
+        id: "n104",
         type: "NoteVideo",
         isPinned: false,
         info: {
@@ -122,7 +124,19 @@ function _createNotes() {
         },
       },
       {
-        id: "n104",
+        id: "n105",
+        type: "NoteVideo",
+        isPinned: false,
+        info: {
+          url: "https://www.youtube.com/watch?v=HjOTyTXBb9s",
+          title: "Coding",
+        },
+        style: {
+          backgroundColor: "#ffff",
+        },
+      },
+      {
+        id: "n106",
         type: "NoteTodos",
         isPinned: false,
         style: {

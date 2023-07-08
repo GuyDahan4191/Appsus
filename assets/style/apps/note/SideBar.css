@@ -9,7 +9,7 @@
     overflow: hidden;
 }
 
-.side-bar-conteiner ul li {
+.side-bar-conteiner .side-bar-list li {
     display: flex;
     align-items: center;
     font-family: sans-serif;
@@ -32,5 +32,9 @@
         'wght' 700,
         'GRAD' 0,
         'opsz' 40;
+
     margin-inline-end: 0.4em;
+
+
+    /* font-size: 1.8em; */
 }

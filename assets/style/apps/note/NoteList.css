@@ -15,8 +15,14 @@
     height: fit-content;
     border-radius: 0.5em;
     font-size: 0.8em;
+    padding: 0.2em;
   }
-
+  
+  .note-list ul li .txt{
+    margin-block-start: 1em;
+    
+  }
+  
   .note-list ul li:nth-child(1) {
     margin-block-start: 0;
   }
@@ -42,6 +48,7 @@
 
   .note-list .color-pallte {
     display: flex;
+    justify-content: center;
     z-index: 1;
     font-size: 2em;   
     background-color: white; 
@@ -102,4 +109,17 @@
     padding: 0.6em;
     color: white;
     text-shadow: 0 0 1px black;
+  }
+
+
+  .note-list ul li .active{
+    opacity: 0;
+    position: absolute;
+    left: -7%;
+    top: -4%;
+    z-index: 5;
+    transition: 0.8s;
+  }
+  .note-list ul li:hover .active{
+    opacity: 1;
   }

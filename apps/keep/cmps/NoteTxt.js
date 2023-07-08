@@ -3,7 +3,12 @@ export default {
 
     template: `
     <div className="text-conteiner">
-      <h2 class="user-text">{{ info.txt }}</h2>
+      <div className="title">
+        <h2 class="user-text">{{ info.title }}</h2>
+      </div>
+      <div className="txt">
+        <h2 class="user-text">{{ info.txt }}</h2>
+      </div>
     </div>
       `,
     components: {},
