@@ -37,8 +37,7 @@ function getEmptyNote() {
     style: {
       backgroundColor: "#ffff",
     },
-    info: {
-    },
+    info: {},
   };
 }
 
@@ -83,6 +82,7 @@ function _createNotes() {
           backgroundColor: "#ffff",
         },
         info: {
+          title:"",
           txt: "Keep Going!!",
         },
       },
@@ -95,6 +95,7 @@ function _createNotes() {
           backgroundColor: "#ffff",
         },
         info: {
+          title:"",
           txt: "Keep Going!!",
         },
       },

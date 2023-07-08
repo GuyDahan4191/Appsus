@@ -2,13 +2,13 @@
     display: flex;
     z-index: 5;
 }
-.side-bar-conteiner ul {
+.side-bar-conteiner .side-bar-list {
     min-width: 300px;
     margin-inline-start: -1.5em;
     overflow: hidden;
 }
 
-.side-bar-conteiner ul li {
+.side-bar-conteiner .side-bar-list li {
     display: flex;
     align-items: center;
     font-family: sans-serif;

@@ -11,6 +11,9 @@ export default {
          :info="note.info"
          />
 
+         <div className="active">
+         <span class="material-symbols-outlined">check_circle</span>
+         </div>
   <section class="action-btn">
           <button @click="onRemoveNote(note.id)">
         <span class="material-symbols-outlined">delete</span>

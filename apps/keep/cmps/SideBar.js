@@ -1,7 +1,7 @@
 export default {
     template: `
       <div className="side-bar-conteiner">
-        <ul>
+        <ul class="side-bar-list">
           <li @click="onSetFilterByType('NoteTxt', $event)">
             <span class="material-symbols-outlined">title</span>Text
           </li>

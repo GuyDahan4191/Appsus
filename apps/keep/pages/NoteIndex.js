@@ -35,8 +35,7 @@ export default {
             <NoteAddOpen
              v-if="isAddNoteOpen"
              :type="noteTypeToEdit" 
-             @saveNoteTxt="saveNoteTxt"
-             @saveNoteImg="saveNoteImg"
+             @save="saveNote"
              />
      
        <h2
@@ -104,7 +103,6 @@ export default {
         noteType: "",
       },
       noteToEdit: noteService.getEmptyNote(),
-      // noteType: "",
       selectedNote: null,
       isFilterMode: false,
 
@@ -148,30 +146,22 @@ export default {
         });
     },
 
-    saveNoteTxt(userInput) {
+    saveNote(userInput, type) {
       this.isAddNoteOpen = false
       if (!userInput) return
-      this.noteToEdit.info.txt = userInput
-      this.noteToEdit.type = 'NoteTxt'
-      noteService.save(this.noteToEdit).then((savedNote) => {
-        showSuccessMsg("Note added!");
-        this.notes.push(savedNote);
-        this.noteToEdit = noteService.getEmptyNote();
-      });
+      this.noteToEdit.type = type
+      
+      this.noteToEdit.info.txt = userInput.userTxt
+      this.noteToEdit.info.title = userInput.userTitle
+      this.noteToEdit.info.url = userInput.userTxt
+
+      noteService.save(this.noteToEdit)
+        .then((savedNote) => {
+          this.notes.push(savedNote);
+          this.noteToEdit = noteService.getEmptyNote();
+        });
     },
 
-    saveNoteImg(userInput) {
-      this.isAddNoteOpen = false
-      if (!userInput) return
-      this.noteToEdit.type = "NoteImg"
-      this.noteToEdit.info.url = userInput
-
-      noteService.save(this.noteToEdit).then((savedNote) => {
-        showSuccessMsg("Note added!");
-        this.notes.push(savedNote);
-        this.noteToEdit = noteService.getEmptyNote();
-      });
-    },
 
     setFilterByTxt(filterBy) {
       this.isFilterMode = true
