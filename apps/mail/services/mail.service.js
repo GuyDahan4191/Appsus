@@ -19,7 +19,8 @@ var gFilterBy = {
     txt: '',
     folder: 'inbox',
     isRead: false,
-
+    sortBy: '',
+    sortDirection: 1
 }
 
 let gUnreadCount
@@ -27,10 +28,6 @@ let gUnreadCount
 const loggedinUser = {
     email: 'guy@appsus.com',
     fullname: 'Guy Dahan'
-}
-let gSortBy = {
-    type: 'sentAt',
-    order: true
 }
 
 _createEmails()
@@ -56,26 +53,29 @@ function query() {
                     case 'sent':
                         emails = emails.filter(email =>
                             (email.from === loggedinUser.email))
-                        // && email.sentAt && email.folder !== 'draft'))
+                        // && email.sentAt && email.folder !== 'draft')
                         break
                     case 'trash':
                         emails = emails.filter(email => email.removedAt)
                         break
-                    // case 'draft':
-                    //     emails = emails.filter(mail => email.from === loggedinUser.email && email.folder === 'draft')
-                    //     break
+                    case 'draft':
+                        emails = emails.filter(email => email.from === loggedinUser.email && email.folder === 'draft')
+                        break
                 }
             }
-            // emails.sort((a, b) => {
-            //     if (gSortBy.type === 'sentAt') {
-            //         if (a[gSortBy.type] < b[gSortBy.type]) return gSortBy.order ? 1 : -1
-            //         if (a[gSortBy.type] > b[gSortBy.type]) return gSortBy.order ? -1 : 1
-            //     } else {
-            //         if (a[gSortBy.type] < b[gSortBy.type]) return gSortBy.order ? -1 : 1
-            //         if (a[gSortBy.type] > b[gSortBy.type]) return gSortBy.order ? 1 : -1
-            //     }
-            //     return 0
-            // })
+            console.log('sort', gFilterBy.sortBy)
+            emails.sort((a, b) => {
+                if (gFilterBy.sortDirection) {
+                    if (a[gFilterBy.sortBy] < b[gFilterBy.sortBy]) return gFilterBy.sortBy ? 1 : -1
+                    if (a[gFilterBy.sortBy] > b[gFilterBy.sortBy]) return gFilterBy.sortBy ? -1 : 1
+                    return 0
+                }
+                else {
+                    if (a[gFilterBy.sortBy] > b[gFilterBy.sortBy]) return gFilterBy.sortBy ? 1 : -1
+                    if (a[gFilterBy.sortBy] < b[gFilterBy.sortBy]) return gFilterBy.sortBy ? -1 : 1
+                    return 0
+                }
+            })
             return emails
         })
 }
@@ -149,9 +149,9 @@ function _createEmails() {
     if (!emails || !emails.length) {
         const emails = [
             {
-                id: 'e101',
+                id: utilService.makeId(5),
                 subject: 'Miss you!',
-                body: '11Would love to catch up sometimes',
+                body: 'Would love to catch up sometimes',
                 isRead: false,
                 isStar: false,
                 sentAt: 1551133930594,
@@ -161,9 +161,9 @@ function _createEmails() {
                 folder: 'inbox'
             },
             {
-                id: 'e102',
+                id: utilService.makeId(5),
                 subject: 'Hate you!',
-                body: '22Would love to catch up sometimes',
+                body: 'Would love to catch up sometimes',
                 isRead: true,
                 isStar: false,
                 sentAt: 1551133930594,
@@ -173,9 +173,9 @@ function _createEmails() {
                 folder: 'inbox'
             },
             {
-                id: 'e103',
+                id: utilService.makeId(5),
                 subject: 'Love you!',
-                body: '33Would love to catch up sometimes',
+                body: 'Would love to catch up sometimes',
                 isRead: false,
                 isStar: false,
                 sentAt: 1551133930594,
@@ -185,9 +185,9 @@ function _createEmails() {
                 folder: 'trash'
             },
             {
-                id: 'e104',
+                id: utilService.makeId(5),
                 subject: 'I want to sleep!',
-                body: 'I f*****g hate all of this bugs',
+                body: 'I  hate all of this bugs',
                 isRead: false,
                 isStar: false,
                 sentAt: Date.now(),
@@ -195,8 +195,35 @@ function _createEmails() {
                 from: 'guy@appsus.com',
                 to: 'shay@zigdon.com',
                 folder: 'sent'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Going to israel',
+                body: `Hi,\nI'm way back.\nDo you know how long until we arrive to the land of milk and honey?\nWaiting for an answer,\nJesus`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now(),
+                removedAt: null,
+                from: 'Jesus@christ.com',
+                to: 'guy@appsus.com',
+                folder: 'inbok'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbok'
             }
         ]
+
+
         utilService.save(EMAIL_KEY, emails);
     }
 }

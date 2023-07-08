@@ -1,0 +1,8 @@
+.logo-search-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.email-filter {
+    margin-left: 75px;
+}

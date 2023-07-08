@@ -1,8 +1,12 @@
 export default {
+    emits: ['close', 'send', 'draft'],
     template: `
         <div class="new-email-container">
             <form @submit.prevent="onSend" class="compose-email">
-                <p class="new-messege">New Message</p>
+                <div class="new-header">
+                    <p class="new-messege">New Message</p>
+                    <p class="new-close" @click="close">X</p>
+                </div>
                 <input class="new-to" v-model="to" required type="email" placeholder="Recipients"/>
                 <input class="new-subject" v-model="subject" required type="text" placeholder="Subject"/>
                 <textarea class="new-body" v-model="body" placeholder="Text go here..."></textarea>
@@ -24,6 +28,12 @@ export default {
                 to: this.to,
                 subject: this.subject,
                 body: this.body
+            })
+        },
+
+        onClose() {
+            this.$emit('close', {
+                draft: this.draft,
             })
         }
     }

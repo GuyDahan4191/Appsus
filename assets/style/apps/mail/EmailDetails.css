@@ -1,23 +1,49 @@
 .email-details-container {
     position: absolute;
-    left: 180px;
+    display: flex;
+    flex-direction: column;
+    left: 200px;
     right: 0px;
-    top: 105px;
+    top: 155px;
     bottom: 0px;
     background-color: white;
     margin: 0px;
-    padding: 10px;
+    padding: 0 40px;
 }
 
 .email-subject {
     font-size: 30px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
-.email-name,
+.email-from {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.email-from .star,
+.email-from .reply {
+    cursor: pointer;
+}
+
 .email-to {
     font-size: 12px;
 }
 
 .email-body {
     font-size: 18px;
+    margin-bottom: 100px;
+    font-family: roboto;
+}
+
+.back-to-list {
+    cursor: pointer;
+}
+
+.back-to-list:hover {
+    cursor: pointer;
+    font-weight: 700;
 }

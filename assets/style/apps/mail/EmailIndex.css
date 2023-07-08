@@ -3,7 +3,7 @@
     grid-template-columns: 200px 1fr;
     grid-template-rows: 50px auto;
     grid-template-areas:
-        "new-email   search"
+        "new-email  filter"
         "menu       list";
     padding: 10px;
 }
@@ -20,8 +20,9 @@
     grid-template-rows: 2/3; */
 }
 
-.email-search {
+.email-filtet {
     grid-area: search;
+
     /* display: flex; */
     /* grid-template-columns: 2/3;
     grid-template-rows: 1/2; */
@@ -53,24 +54,13 @@
     font-weight: bold;
 }
 
-/* for opened one */
-/* 
-.email-menu li:hover {
-    background-color: lightblue;
-    font-weight: bold;
-    
-} */
-
-/* .email-index {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    grid-template-rows: 50px auto;
-    grid-template-areas:
-        "menu   search"
-        "menu   details";
-    padding: 10px;
+.btn-filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space space-between;
 }
 
-.email-details {
-    grid-area: details;
-} */
+.btn-filter {
+    width: 70px;
+    height: 40px;
+}

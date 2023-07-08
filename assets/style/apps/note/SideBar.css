@@ -2,6 +2,7 @@
     display: flex;
     z-index: 5;
 }
+
 .side-bar-conteiner ul {
     min-width: 300px;
     margin-inline-start: -1.5em;
@@ -20,6 +21,7 @@
     cursor: pointer;
     transition: 0.5s;
 }
+
 .side-bar-conteiner ul li:hover {
     background-color: rgba(255, 166, 0, 0.314);
 }
@@ -30,9 +32,5 @@
         'wght' 700,
         'GRAD' 0,
         'opsz' 40;
-
-        margin-inline-end: 0.4em;
-
-    
-    /* font-size: 1.8em; */
+    margin-inline-end: 0.4em;
 }

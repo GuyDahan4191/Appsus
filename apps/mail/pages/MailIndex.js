@@ -1,21 +1,30 @@
 import { emailService } from '../services/mail.service.js'
+import { utilService } from '../../../services/util.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
 import EmailList from '../cmps/MailList.js'
 import EmailFilter from '../cmps/MailFilter.js'
 import EmailMenu from '../cmps/MailMenu.js'
 import ComposeMail from '../cmps/ComposeMail.js'
+import AppHeader from "../cmps/MailAppHeader.js";
 
 export default {
     name: 'EmailIndex',
     props: ['email'],
     template: `
+        <AppHeader @filterTxt="setFilterBy"/>
         <section class="email-index">
-            <button class="new-email" @click="toggleCompose"><span class="material-symbols-outlined">
-                edit
-                </span>Compose</button>
+            <button class="new-email" @click="onToggleCompose">
+                <span class="material-symbols-outlined">edit
+                </span>Compose
+            </button>
 
-            <EmailFilter @filterTxt="setFilterBy"/>
+            <div class="btn-filters">
+                <button class="btn-filter" @click="onSetSortBy('date')">filter by date</button>
+                <button class="btn-filter" @click="onSetSortBy('subject')">filter by subject</button>
+                <button class="btn-filter" @click="onSetSortBy('from')">filter by from</button>
+            </div>
+                
             <EmailMenu @filterByMenu="onFilterByMenu" :emails="emails"/>
             <EmailList
                 v-if="emails"
@@ -25,7 +34,12 @@ export default {
                 @toggleRead="toggleRead"
                 @star="onStar"
                 />
-            <ComposeMail @send="send" v-if="isCompose"/>
+            <ComposeMail
+                v-if="isCompose" 
+                @send="onSend"
+                @close="close"
+                @draftSaved="loadEmails"
+                />
             <RouterView :emails="emails" />
         </section>
     `,
@@ -38,6 +52,8 @@ export default {
                 txt: '',
                 isStared: false,
                 // isRead: 'all',
+                sortBy: 'date',
+                sortDirectaion: true
             },
             isCompose: false,
         }
@@ -121,9 +137,9 @@ export default {
             console.log('filterBy.txt:', this.filterBy.txt)
         },
 
-        send(sendEmail) {
+        onSend(sendEmail) {
             const email = {
-                id: '',
+                id: utilService.makeId,
                 subject: sendEmail.subject,
                 body: sendEmail.body,
                 isRead: false,
@@ -139,9 +155,18 @@ export default {
             showSuccessMsg('mail sent')
         },
 
-        toggleCompose() {
+        close(sendEmail) {
+            this.isCompose = !this.isCompose
+
+            const email = {
+                folder: draft
+            }
+        },
+
+        onToggleCompose() {
             console.log('new messege:')
             this.isCompose = !this.isCompose
+            // onSend()
         },
 
         toggleRead(emailId) {
@@ -165,6 +190,16 @@ export default {
             emailService.toggleStar(emailId)
                 .then(() => this.loadEmails())
         },
+
+        onSetSortBy(sortBy) {
+            if (this.filterBy.sortBy === sortBy) {
+                this.filterBy.sortDirection = !this.filterBy.sortDirection
+                console.log('sortDirection:', this.filterBy.sortDirection)
+            }
+            this.filterBy.sortBy = sortBy
+            console.log('sort by index', sortBy)
+            this.loadEmails()
+        }
     },
 
     components: {
@@ -172,5 +207,6 @@ export default {
         EmailFilter,
         EmailMenu,
         ComposeMail,
+        AppHeader,
     },
 }

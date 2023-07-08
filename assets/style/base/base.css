@@ -55,13 +55,13 @@ button {
   outline: 1px solid gold
 }
 
-.material-symbols-outlined {
+/* .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,
     'wght' 500,
     'GRAD' 0,
     'opsz' 20
-}
+} */
 
 ul {
   list-style-type: none;
@@ -74,4 +74,8 @@ ul {
 
 .flex {
   display: flex;
+}
+
+.app-footer {
+  bottom: 0;
 }
