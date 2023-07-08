@@ -9,6 +9,7 @@ export default {
    <Component
          :is="note.type"
          :info="note.info"
+         @click="setNoteToEdit(note.id)"
          />
 
          <div className="active">
@@ -31,24 +32,11 @@ export default {
           <span class="material-symbols-outlined">push_pin</span>
        </button>
   </section>
- 
 
     <section v-if="isColorOpen" class="color-pallte">
-      <!-- <div  v-for="(color, idx) in colorOption"
-        key="color"
-        @click="setBgColor(color, note.id)"
-        :class="colorClass[idx]"
-        > -->
-        <div @click="setBgColor('#ff7070',note.id)"className="red"></div>
-        <div @click="setBgColor('#7676ff',note.id)" className="blue"></div>
-        <div @click="setBgColor('#79ff79',note.id)" className="green"></div>
-        <div @click="setBgColor('#ffff78',note.id)" className="yellow"></div>
-        <div @click="setBgColor('#ff728a',note.id)" className="pink"></div>
-        <div @click="setBgColor('#cc79ff',note.id)" className="purple"></div>
-        <div @click="setBgColor('#ffffff',note.id)" className="white"></div>
-        <div @click="setBgColor('#ffc472',note.id)" className="pink"></div>
-      <!-- </div> -->
-    </section>
+  <div v-for="(color, index) in colorOptions" :key="index" @click="setBgColor(color, note.id)" :class="colorClass[index]"></div>
+</section>
+
     `,
     
   data() {
@@ -93,7 +81,13 @@ export default {
 
     duplicateNote(noteId) {
       this.$emit("duplicate", noteId);
+    },
+    setNoteToEdit(noteId) {
+      console.log(noteId);
+      this.$emit('editNote', noteId)
     }
+
+
   },
   components: {
     NoteTodos,

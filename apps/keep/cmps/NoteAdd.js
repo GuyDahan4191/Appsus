@@ -10,19 +10,7 @@ export default {
                  <li @click="setNoteType('NoteVideo')"><span class="material-symbols-outlined">videocam</span></li>
              </ul>
         </div>
-    </div>
-        <!-- <input @click="setNoteType(NoteTxt)" id="user-input" type="text" placeholder="Take a note..."> -->
-   <!-- <form @submit.prevent="saveNote" class="add-note">
-          <input @change="check" id="user-input" v-model="noteToEdit.info.txt" type="text" placeholder="Take a note...">
-           <button>Save</button>
-
-            <select v-model="noteType" >
-              <option>NoteTxt</option>
-              <option>NoteImg</option>
-              <option>NoteTodos</option>
-              <option>NoteVideo</option>
-            </select>
-       </form> -->
+</div>
     `,
     methods: {
         setNoteType(type) {

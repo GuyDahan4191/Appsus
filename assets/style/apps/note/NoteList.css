@@ -48,6 +48,7 @@
 
   .note-list .color-pallte {
     display: flex;
+    justify-content: center;
     z-index: 1;
     font-size: 2em;   
     background-color: white; 

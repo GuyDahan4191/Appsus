@@ -12,10 +12,14 @@ import PinnedNote from "../cmps/PinnedNote.js";
 import SideBar from "../cmps/SideBar.js";
 import NoteAdd from "../cmps/NoteAdd.js";
 import NoteAddOpen from "../cmps/NoteAddOpen.js";
+import NoteDetails from "../cmps/NoteDetails.js";
 
 
 export default {
   template: `
+  <div 
+  :class="{'edit-note-open': isEditNoteOpen}"
+   > 
           <AppHeader
           @filterByTxt="setFilterByTxt"
            />
@@ -37,11 +41,18 @@ export default {
              :type="noteTypeToEdit" 
              @save="saveNote"
              />
+             
+             <NoteDetails
+              v-if="isEditNoteOpen"
+              :note="noteToEdit"
+              @save="saveEditNote"
+              />
      
        <h2
        v-if="isFilterMode"
        >Search</h2>
 
+       <!-- filtered-->
        <NoteList
        @openColor="openColor"
        v-if="notes"
@@ -53,7 +64,7 @@ export default {
        @pin="pinNote" 
        />
 
-<!-- pinned -->
+      <!-- pinned -->
       <h2
       v-if="!isFilterMode"
       >Pinned</h2>
@@ -67,8 +78,10 @@ export default {
        @setColor="setBgColor" 
        @duplicate="duplicateNote" 
        @pin="pinNote" 
+       @editNote="openNoteEdit"
        />
-<!-- others -->
+
+      <!-- others -->
       <h2
       v-if="!isFilterMode"
       >Others</h2>
@@ -81,12 +94,16 @@ export default {
        @remove="removeNote"  
        @setColor="setBgColor" 
        @duplicate="duplicateNote" 
-       @pin="pinNote" 
+       @pin="pinNote"
+       @editNote="openNoteEdit"
        />
 
+       
+
        <NoteColor :note ="selectedNote" />
-        </div>
-       </div>
+
+  </div>
+
        
     `,
   created() {
@@ -98,16 +115,24 @@ export default {
   data() {
     return {
       notes: [],
+
       filterBy: {
         txt: "",
         noteType: "",
       },
-      noteToEdit: noteService.getEmptyNote(),
+
+      noteToAdd: noteService.getEmptyNote(),
       selectedNote: null,
       isFilterMode: false,
 
       noteTypeToEdit: "",
-      isAddNoteOpen: false
+      isAddNoteOpen: false,
+
+      isEditNoteOpen: false,
+      noteToEdit: "",
+      noteEdited: null,
+      noteEditedIdx: null
+
     };
   },
 
@@ -129,7 +154,6 @@ export default {
 
     openAddNoteByType(type) {
       this.noteTypeToEdit = type
-      console.log(this.noteTypeToEdit);
       this.isAddNoteOpen = true
     },
 
@@ -148,17 +172,17 @@ export default {
 
     saveNote(userInput, type) {
       this.isAddNoteOpen = false
-      if (!userInput) return
-      this.noteToEdit.type = type
-      
-      this.noteToEdit.info.txt = userInput.userTxt
-      this.noteToEdit.info.title = userInput.userTitle
-      this.noteToEdit.info.url = userInput.userTxt
+      if (!userInput.userTxt) return
+      this.noteToAdd.type = type
 
-      noteService.save(this.noteToEdit)
+      this.noteToAdd.info.txt = userInput.userTxt
+      this.noteToAdd.info.title = userInput.userTitle
+      this.noteToAdd.info.url = userInput.userTxt
+
+      noteService.save(this.noteToAdd)
         .then((savedNote) => {
           this.notes.push(savedNote);
-          this.noteToEdit = noteService.getEmptyNote();
+          this.noteToAdd = noteService.getEmptyNote();
         });
     },
 
@@ -193,6 +217,31 @@ export default {
       const noteRes = this.notes.find(note => noteId === note.id)
       noteRes.isPinned = !noteRes.isPinned
       noteService.save(noteRes)
+    },
+
+    openNoteEdit(noteId) {
+      this.noteToEdit = this.notes.find((note => note.id === noteId))
+      console.log(this.noteToEdit);
+
+      this.noteEditedIdx = this.notes.findIndex((note => note.id === noteId))
+      this.noteEdited = this.notes.splice(this.noteEditedIdx, 1)
+
+      this.isEditNoteOpen = true
+    },
+
+    saveEditNote(userInput, noteId) {
+      this.isEditNoteOpen = false
+
+      const editedNoteIdx = this.noteEditedIdx
+      const rawInfo = Vue.toRaw(this.noteEdited[0].info)
+
+      rawInfo.title = userInput.title;
+      rawInfo.txt = userInput.txt;
+      rawInfo.url = userInput.url;
+
+      this.notes.splice(editedNoteIdx, 0, this.noteEdited[0])
+
+      noteService.save(this.noteEdited[0])
     }
   },
 
@@ -220,6 +269,7 @@ export default {
     PinnedNote,
     SideBar,
     NoteAdd,
-    NoteAddOpen
+    NoteAddOpen,
+    NoteDetails
   },
 };
