@@ -9,8 +9,6 @@ import UserMsg from './cmps/UserMsg.js'
 const options = {
     template: `
         <section>
-        <RouterLink to="/keep">Keep</RouterLink> 
-        <RouterLink to="/mail">Mail</RouterLink> 
             <RouterView />
             <AppFooter />
             <UserMsg />

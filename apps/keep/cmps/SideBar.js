@@ -19,8 +19,8 @@ export default {
     `,
     methods: {
       onSetFilterByType(filterBy, event) {
-        event.stopPropagation(); // Stop event propagation
-        this.$emit("filterByType", filterBy);
+        event.stopPropagation()
+        this.$emit("filterByType", filterBy)
       },
     },
   };

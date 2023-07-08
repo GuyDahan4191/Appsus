@@ -1,0 +1,41 @@
+.home-page {
+    height: 100vh;
+    overflow: hidden;
+    background-image: url(../../img/—Pngtree—simple\ white\ flat\ vectors\ with_1353885.png);
+}
+
+.home-page .nav-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.home-page .nav-bar>* {
+    margin-inline: 1.6em;
+    border: 1px solid rgb(183, 183, 183);
+    padding: 0.7em 3em;
+    border-radius: 1.5em;
+    letter-spacing: 0.5px;
+    font-family: sans-serif;
+    transition: 0.5s;
+}
+
+.home-page .nav-bar>*:hover {
+    background-color: rgb(227, 255, 246);}
+
+.home-page .nav-bar :first-child {
+    background-color: aliceblue;
+}
+
+.home-page .nav-bar :first-child:hover {
+    background-color: rgb(227, 255, 246);
+}
+
+.home-page .title {
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 1px;
+}
