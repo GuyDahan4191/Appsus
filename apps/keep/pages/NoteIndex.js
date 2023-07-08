@@ -10,6 +10,8 @@ import NoteList from "../cmps/NoteList.js";
 import AppHeader from "../cmps/AppHeader.js";
 import PinnedNote from "../cmps/PinnedNote.js";
 import SideBar from "../cmps/SideBar.js";
+import NoteAdd from "../cmps/NoteAdd.js";
+import NoteAddOpen from "../cmps/NoteAddOpen.js";
 
 
 export default {
@@ -23,18 +25,19 @@ export default {
            @filterByType="setFilterByType"
            />
            
+           
            <div className="main-content">
-          <form @submit.prevent="saveNote" class="add-note">
-          <input @change="check" id="user-input" v-model="noteToEdit.info.txt" type="text" placeholder="Take a note...">
-           <button>Save</button>
 
-            <select v-model="noteType" >
-              <option>NoteTxt</option>
-              <option>NoteImg</option>
-              <option>NoteTodos</option>
-              <option>NoteVideo</option>
-            </select>
-       </form>
+           <NoteAdd 
+           @setNoteType="openAddNoteByType"
+            v-if="!isAddNoteOpen" />
+
+            <NoteAddOpen
+             v-if="isAddNoteOpen"
+             :type="noteTypeToEdit" 
+             @saveNoteTxt="saveNoteTxt"
+             @saveNoteImg="saveNoteImg"
+             />
      
        <h2
        v-if="isFilterMode"
@@ -101,9 +104,12 @@ export default {
         noteType: "",
       },
       noteToEdit: noteService.getEmptyNote(),
-      noteType: "",
+      // noteType: "",
       selectedNote: null,
-      isFilterMode: false
+      isFilterMode: false,
+
+      noteTypeToEdit: "",
+      isAddNoteOpen: false
     };
   },
 
@@ -123,6 +129,12 @@ export default {
         });
     },
 
+    openAddNoteByType(type) {
+      this.noteTypeToEdit = type
+      console.log(this.noteTypeToEdit);
+      this.isAddNoteOpen = true
+    },
+
     handleClick() {
       this.isFilterMode = false;
     },
@@ -136,7 +148,24 @@ export default {
         });
     },
 
-    saveNote() {
+    saveNoteTxt(userInput) {
+      this.isAddNoteOpen = false
+      if (!userInput) return
+      this.noteToEdit.info.txt = userInput
+      this.noteToEdit.type = 'NoteTxt'
+      noteService.save(this.noteToEdit).then((savedNote) => {
+        showSuccessMsg("Note added!");
+        this.notes.push(savedNote);
+        this.noteToEdit = noteService.getEmptyNote();
+      });
+    },
+
+    saveNoteImg(userInput) {
+      this.isAddNoteOpen = false
+      if (!userInput) return
+      this.noteToEdit.type = "NoteImg"
+      this.noteToEdit.info.url = userInput
+
       noteService.save(this.noteToEdit).then((savedNote) => {
         showSuccessMsg("Note added!");
         this.notes.push(savedNote);
@@ -199,6 +228,8 @@ export default {
     AppHeader,
     NoteList,
     PinnedNote,
-    SideBar
+    SideBar,
+    NoteAdd,
+    NoteAddOpen
   },
 };

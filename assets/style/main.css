@@ -31,3 +31,5 @@
 @import 'apps/note/NoteList.css';
 @import 'apps/note/appHeader.css';
 @import 'apps/note/SideBar.css';
+@import 'apps/note/NoteAdd.css';
+@import 'apps/note/NoteAddOpen.css';

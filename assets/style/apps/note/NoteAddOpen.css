@@ -1,0 +1,22 @@
+.note-conteiner {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 2em;
+}
+
+.note {
+    position: relative;
+    display: flex;
+    width: 600px;
+    height: 120px;
+    border-radius: 0.5em;
+    padding: 1em;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.275);
+}
+.note h5 {
+    position: absolute;
+    right: 10%;
+    bottom: 4%;
+    font-weight: 600;
+}
+

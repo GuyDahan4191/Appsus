@@ -23,21 +23,22 @@ _createNotes();
 
 function query() {
   return storageService.query(NOTES_KEY)
-  .then((notes) => {
-    return notes;
-  });
+    .then((notes) => {
+      return notes;
+    });
 }
 
-function getEmptyNote(txt) {
+function getEmptyNote() {
   return {
     id: "",
     createdAt: 122333,
-    type: "NoteTxt",
+    type: "",
     isPinned: false,
     style: {
       backgroundColor: "#ffff",
     },
-    info: { txt },
+    info: {
+    },
   };
 }
 
