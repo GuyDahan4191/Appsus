@@ -1,7 +1,7 @@
 .note-list ul {
     columns: 4 275px;
     column-gap: 1rem;
-    padding: 0 4em;
+    padding: 2em 4em;
   }
   
   .note-list ul li {
@@ -16,6 +16,7 @@
     border-radius: 0.5em;
     font-size: 0.8em;
     padding: 0.2em;
+    cursor: pointer;
   }
   
   .note-list ul li .txt{
@@ -55,7 +56,7 @@
     padding: 0.5em;
     border-radius: 0.5em;
     border: 1px solid rgba(128, 128, 128, 0.19);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.281);    
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.281);   
   }
 
   .note-list .color-pallte >* {
@@ -65,6 +66,7 @@
     width: 1.5em;
     border-radius: 50%;
     margin: 0.15em;
+    cursor: pointer;
   }
 
   .note-list .color-pallte .red {
@@ -115,11 +117,44 @@
   .note-list ul li .active{
     opacity: 0;
     position: absolute;
-    left: -7%;
-    top: -4%;
+    left: -1.8em;
+    top:-0.8em;
     z-index: 5;
     transition: 0.8s;
+    cursor: pointer;
   }
-  .note-list ul li:hover .active{
+  .note-list ul li:hover .active,
+  .note-list ul li:hover .pin {
     opacity: 1;
+  }
+  
+  .note-list .todos-list {
+    display: flex;
+    align-items: center;
+  }
+  
+  .note-list .todos-list > * {
+    cursor: pointer;
+    margin-block:0.5em ;
+
+  }
+  
+  .note-list .pin {
+    position: absolute;
+    right: 0;
+    top: 5%;
+    opacity: 0;
+    transition: 0.8s;
+    cursor: pointer;
+  }
+  
+  .todo-container .todo-title {
+    padding: 1em;
+  }
+  .todo-container .todos-list .todo-input {
+    margin-inline-end: 2em;
+  }
+  
+  .material-symbols-outlined {
+    color: grey;
   }

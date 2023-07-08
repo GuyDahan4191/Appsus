@@ -1,32 +1,37 @@
 h2 {
-    margin: 0;
-    font-size: 1.3em;
+  margin: 0;
+  font-size: 1.3em;
 }
 
 .add-note-conteiner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-note-conteiner .type-list>* {
+  cursor: pointer;
 }
 
 .add-note {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 600px;
-    margin-block-start: 1em;
-    border-radius: 0.5em;
-    padding: 0.4em 1em ;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.275);
-  }
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 600px;
+  margin-block-start: 1em;
+  border-radius: 0.5em;
+  padding: 1em 1em;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.275);
+  font-size: 0.8em;
+}
 
-  .add-note .type-list {
-    display: flex;
-    margin: 0;
-  }
-  
-  .add-note ul li {
-    padding: 0;
-  }
-  
+.add-note .type-list {
+  display: flex;
+  justify-content: end;
+  margin: 0;
+}
+
+.add-note ul li {
+  padding: 0;
+}

@@ -12,7 +12,7 @@ export default {
             </div>
             
             <div class="buttons">
-                <h2>rest</h2>
+                <h2></h2>
                 <h5 @click="saveEditedNote(note.id)">Close</h5>
             </div>
         </div>
@@ -29,7 +29,7 @@ export default {
             </div>
             
             <div class="buttons">
-                <h2>rest</h2>
+                <h2></h2>
                 <h5 @click="saveEditedNote(note.id)">Close</h5>
             </div>
         </div>
@@ -46,11 +46,12 @@ export default {
             </div>
             
             <div class="buttons">
-                <h2>rest</h2>
+                <h2></h2>
                 <h5 @click="saveEditedNote(note.id)">Close</h5>
             </div>
         </div>
     </div>
+
     `,
 
     data() {
@@ -59,7 +60,7 @@ export default {
                 title: this.note.info.title,
                 txt: this.note.info.txt,
                 url: this.note.info.url
-            }
+            },
         }
     },
     methods: {

@@ -14,6 +14,9 @@ export default {
           <li @click="onSetFilterByType('NoteVideo', $event)">
           <span class="material-symbols-outlined">videocam</span>Video
           </li>
+          <li @click="onSetFilterByType('', $event)">
+          <span class="material-symbols-outlined">note</span>Notes
+          </li>
         </ul>
       </div>
     `,

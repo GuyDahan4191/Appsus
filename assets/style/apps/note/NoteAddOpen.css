@@ -38,6 +38,7 @@
     align-items: center;
     margin-block-start: 1em;
     padding: 0 0.2em;
+    cursor: pointer;
 }
  h5 {
     margin: 0;

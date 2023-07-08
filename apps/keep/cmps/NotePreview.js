@@ -27,11 +27,11 @@ export default {
        <button @click="duplicateNote(note.id)" >
           <span class="material-symbols-outlined">file_copy</span>
        </button>
-
-       <button @click="pinNote(note.id)" >
-          <span class="material-symbols-outlined">push_pin</span>
-       </button>
   </section>
+  
+  <div className="pin">
+    <span  @click="pinNote(note.id)" class="material-symbols-outlined">push_pin</span>
+  </div>
 
     <section v-if="isColorOpen" class="color-pallte">
   <div v-for="(color, index) in colorOptions" :key="index" @click="setBgColor(color, note.id)" :class="colorClass[index]"></div>
@@ -83,7 +83,6 @@ export default {
       this.$emit("duplicate", noteId);
     },
     setNoteToEdit(noteId) {
-      console.log(noteId);
       this.$emit('editNote', noteId)
     }
 

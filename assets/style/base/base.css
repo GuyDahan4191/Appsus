@@ -44,8 +44,6 @@ object {
 /* tap targets: */
 nav a,
 button {
-  /* min-width: 48px;
-  min-height: 48px; */
   min-width: 1px;
   min-height: 1px;
 }
@@ -54,14 +52,6 @@ button {
 .debug * {
   outline: 1px solid gold
 }
-
-/* .material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 500,
-    'GRAD' 0,
-    'opsz' 20
-} */
 
 ul {
   list-style-type: none;
@@ -78,4 +68,12 @@ ul {
 
 .app-footer {
   bottom: 0;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48;
 }

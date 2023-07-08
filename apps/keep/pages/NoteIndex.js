@@ -22,25 +22,34 @@ export default {
    > 
           <AppHeader
           @filterByTxt="setFilterByTxt"
+          @openMenu="isMenuOpen=!isMenuOpen"
            />
 
            <div className="side-bar-conteiner">
+
+           <Transition name="slide-fade">
            <SideBar 
+           v-if="isMenuOpen"
            @filterByType="setFilterByType"
            />
-           
-           
+           </Transition>
+
            <div className="main-content">
 
+           <Transition>
            <NoteAdd 
            @setNoteType="openAddNoteByType"
             v-if="!isAddNoteOpen" />
+            </Transition>
 
+            <Transition>
             <NoteAddOpen
              v-if="isAddNoteOpen"
              :type="noteTypeToEdit" 
              @save="saveNote"
              />
+           </Transition>
+
              
              <NoteDetails
               v-if="isEditNoteOpen"
@@ -48,9 +57,10 @@ export default {
               @save="saveEditNote"
               />
      
-       <h2
+       <h2 class="section-title"
        v-if="isFilterMode"
        >Search</h2>
+
 
        <!-- filtered-->
        <NoteList
@@ -65,9 +75,10 @@ export default {
        />
 
       <!-- pinned -->
-      <h2
+      <h2 class="section-title"
       v-if="!isFilterMode"
       >Pinned</h2>
+      <div className="line"></div>
 
        <NoteList
        @openColor="openColor"
@@ -82,7 +93,7 @@ export default {
        />
 
       <!-- others -->
-      <h2
+      <h2 class="section-title"
       v-if="!isFilterMode"
       >Others</h2>
 
@@ -99,7 +110,6 @@ export default {
        />
 
        
-
        <NoteColor :note ="selectedNote" />
 
   </div>
@@ -131,7 +141,9 @@ export default {
       isEditNoteOpen: false,
       noteToEdit: "",
       noteEdited: null,
-      noteEditedIdx: null
+      noteEditedIdx: null,
+
+      isMenuOpen: false
 
     };
   },
@@ -166,27 +178,30 @@ export default {
         .then(() => {
           const noteIdx = this.notes.findIndex((note) => note.id === noteId);
           this.notes.splice(noteIdx, 1);
-          showSuccessMsg("Note Removed!");
         });
     },
 
     saveNote(userInput, type) {
-      this.isAddNoteOpen = false
-      if (!userInput.userTxt) return
-      this.noteToAdd.type = type
-
-      this.noteToAdd.info.txt = userInput.userTxt
-      this.noteToAdd.info.title = userInput.userTitle
-      this.noteToAdd.info.url = userInput.userTxt
-
+      this.isAddNoteOpen = false;
+      if (!userInput.userTxt) return;
+    
+      this.noteToAdd.type = type;
+      this.noteToAdd.info.title = userInput.userTitle;
+    
+      if (type === 'NoteTodos') {
+        this.noteToAdd.info.todos = userInput.userTxt;
+      } else {
+        this.noteToAdd.info.txt = userInput.userTxt;
+        this.noteToAdd.info.url = userInput.userTxt;
+      }
+    
       noteService.save(this.noteToAdd)
-        .then((savedNote) => {
+        .then(savedNote => {
           this.notes.push(savedNote);
           this.noteToAdd = noteService.getEmptyNote();
         });
     },
-
-
+    
     setFilterByTxt(filterBy) {
       this.isFilterMode = true
       this.filterBy.txt = filterBy;
@@ -208,7 +223,6 @@ export default {
       noteService.resetId(noteRes)
       noteService.save(noteRes)
         .then(() => {
-          showSuccessMsg("Note duplicate!");
           this.loadNotes()
         });
     },
@@ -221,7 +235,7 @@ export default {
 
     openNoteEdit(noteId) {
       this.noteToEdit = this.notes.find((note => note.id === noteId))
-      console.log(this.noteToEdit);
+      if(this.noteToEdit.type === 'NoteTodos') return
 
       this.noteEditedIdx = this.notes.findIndex((note => note.id === noteId))
       this.noteEdited = this.notes.splice(this.noteEditedIdx, 1)

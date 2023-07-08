@@ -11,7 +11,7 @@ export default {
             <input type="text" :placeholder="getPlaceholderText(type)" class="title-holder" v-model="userInput.userTxt" />
           </div>
           <div class="buttons">
-            <h2>rest</h2>
+            <h2></h2>
             <h5 @click="saveNote">Close</h5>
           </div>
         </div>
@@ -22,7 +22,7 @@ export default {
     return {
       userInput: {
         userTitle: "",
-        userTxt: ""
+        userTxt: "",
       }
     };
   },
@@ -33,8 +33,16 @@ export default {
   },
   methods: {
     saveNote() {
+      if (this.type === 'NoteTodos') {
+        const todoItems = this.userInput.userTxt
+          .split(',')
+          .map(item => item.trim())
+          .map(txt => ({ txt, doneAt: null }));
+        this.userInput.userTxt = todoItems;
+      }
       this.$emit('save', this.userInput, this.type);
     },
+
     getPlaceholderText(noteType) {
       if (noteType === 'NoteTxt') {
         return 'Take a note...';
@@ -43,8 +51,8 @@ export default {
       } else if (noteType === 'NoteVideo') {
         return 'Enter video URL...';
       } else if (noteType === 'NoteTodos') {
-        return 'Enter your to-do items...';
+        return 'Enter your to-do items by (,)...';
       }
     }
-  }
+  },
 };
