@@ -13,8 +13,8 @@ export default {
                 <li v-for="email in emails" :key="email.id">
                         <EmailPreview 
                             :email="email"
+                            @star.stop="onStar"
                             @click.stop="onOpenEmail(email.id)"
-                            @star="onStar"
                         />
                     
                     <div class="actions">
