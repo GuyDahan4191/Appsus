@@ -12,7 +12,7 @@ export default {
                 <div class="email-preview-info">
                     <div class="line-boxes">
                         <input type="checkbox" class="line-checkbox">
-                        <div @click.stop="onStar" class="star" 
+                        <div @click="onStar" class="star" 
                             :class="{'star-true': email.isStar,
                                 'star-false': !email.isStar}">
                             <span class="material-symbols-outlined">star</span>

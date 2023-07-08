@@ -56,7 +56,7 @@ function query() {
                         // && email.sentAt && email.folder !== 'draft')
                         break
                     case 'trash':
-                        emails = emails.filter(email => email.removedAt)
+                        emails = emails.filter(email => email.removedAt || email.folder === 'trash')
                         break
                     case 'draft':
                         emails = emails.filter(email => email.from === loggedinUser.email && email.folder === 'draft')
@@ -64,18 +64,18 @@ function query() {
                 }
             }
             console.log('sort', gFilterBy.sortBy)
-            emails.sort((a, b) => {
-                if (gFilterBy.sortDirection) {
-                    if (a[gFilterBy.sortBy] < b[gFilterBy.sortBy]) return gFilterBy.sortBy ? 1 : -1
-                    if (a[gFilterBy.sortBy] > b[gFilterBy.sortBy]) return gFilterBy.sortBy ? -1 : 1
-                    return 0
-                }
-                else {
-                    if (a[gFilterBy.sortBy] > b[gFilterBy.sortBy]) return gFilterBy.sortBy ? 1 : -1
-                    if (a[gFilterBy.sortBy] < b[gFilterBy.sortBy]) return gFilterBy.sortBy ? -1 : 1
-                    return 0
-                }
-            })
+            // emails.sort((a, b) => {
+            //     if (gFilterBy.sortDirection) {
+            //         if (a[gFilterBy.sortBy] < b[gFilterBy.sortBy]) return gFilterBy.sortBy ? 1 : -1
+            //         if (a[gFilterBy.sortBy] > b[gFilterBy.sortBy]) return gFilterBy.sortBy ? -1 : 1
+            //         return 0
+            //     }
+            //     else {
+            //         if (a[gFilterBy.sortBy] > b[gFilterBy.sortBy]) return gFilterBy.sortBy ? 1 : -1
+            //         if (a[gFilterBy.sortBy] < b[gFilterBy.sortBy]) return gFilterBy.sortBy ? -1 : 1
+            //         return 0
+            //     }
+            // })
             return emails
         })
 }
@@ -166,11 +166,11 @@ function _createEmails() {
                 body: 'Would love to catch up sometimes',
                 isRead: true,
                 isStar: false,
-                sentAt: 1551133930594,
+                sentAt: 1551233930594,
                 removedAt: null,
-                from: 'jojo@jojo.com',
-                to: 'guy@appsus.com',
-                folder: 'inbox'
+                from: 'guy@appsus.com',
+                to: 'jojo@jojo.com',
+                folder: 'sent'
             },
             {
                 id: utilService.makeId(5),
@@ -178,7 +178,7 @@ function _createEmails() {
                 body: 'Would love to catch up sometimes',
                 isRead: false,
                 isStar: false,
-                sentAt: 1551133930594,
+                sentAt: 1553133930594,
                 removedAt: null,
                 from: 'koko@koko.com',
                 to: 'guy@appsus.com',
@@ -186,27 +186,27 @@ function _createEmails() {
             },
             {
                 id: utilService.makeId(5),
-                subject: 'I want to sleep!',
-                body: 'I  hate all of this bugs',
-                isRead: false,
-                isStar: false,
+                subject: 'Slack account sign in from a new device',
+                body: 'Slack account sign in from a new browser.\nIf this was you, you’re all set!\nIf this wasn’t you, please change your password the app. You can also enable two-factor authentication to help secure your account.',
+                isRead: true,
+                isStar: true,
                 sentAt: Date.now(),
                 removedAt: null,
-                from: 'guy@appsus.com',
-                to: 'shay@zigdon.com',
-                folder: 'sent'
+                from: 'feedback@slack.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
             },
             {
                 id: utilService.makeId(5),
                 subject: 'Going to israel',
                 body: `Hi,\nI'm way back.\nDo you know how long until we arrive to the land of milk and honey?\nWaiting for an answer,\nJesus`,
                 isRead: false,
-                isStar: false,
-                sentAt: Date.now(),
+                isStar: true,
+                sentAt: 1851133930594,
                 removedAt: null,
                 from: 'Jesus@christ.com',
                 to: 'guy@appsus.com',
-                folder: 'inbok'
+                folder: 'inbox'
             },
             {
                 id: utilService.makeId(5),
@@ -219,8 +219,100 @@ function _createEmails() {
                 removedAt: null,
                 from: 'info@wolt.com',
                 to: 'guy@appsus.com',
-                folder: 'inbok'
-            }
+                folder: 'inbox'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
+            },
+            {
+                id: utilService.makeId(5),
+                subject: 'Wolt (Accepting a purchase on Wolt)',
+                imgSrc: 'wolt',
+                body: `Toka Pizza Haifa\nJuly 02, 2023, 20:56\nOrder number: 64a1b28edb1ea9c70fe51736\nTotal: ILS 153.00`,
+                isRead: false,
+                isStar: false,
+                sentAt: Date.now() - 1,
+                removedAt: null,
+                from: 'info@wolt.com',
+                to: 'guy@appsus.com',
+                folder: 'inbox'
+            },
+
         ]
 
 
