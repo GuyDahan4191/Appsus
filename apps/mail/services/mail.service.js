@@ -51,7 +51,7 @@ function query() {
                             (email.to === loggedinUser.email) && (!email.removedAt))
                         break
                     case 'starred':
-                        emails = emails.filter(email => email.isStarred === true)
+                        emails = emails.filter(email => email.isStar === true)
                         break
                     case 'sent':
                         emails = emails.filter(email =>
@@ -129,7 +129,7 @@ function toggleRead(email) {
 }
 
 function toggleStar(emailId) {
-    return get(id)
+    return get(emailId)
         .then(email => {
             console.log('star before:', email.isStar)
             email.isStar = !email.isStar

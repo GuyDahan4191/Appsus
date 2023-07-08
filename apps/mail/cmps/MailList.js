@@ -42,9 +42,9 @@ export default {
             this.$emit('openEmail', emailId)
         },
 
-        onStar() {
+        onStar(emailId) {
             console.log('Star list')
-            this.$emit('star', this.email.id)
+            this.$emit('star', emailId)
         },
 
         onRemoveEmail(emailId) {

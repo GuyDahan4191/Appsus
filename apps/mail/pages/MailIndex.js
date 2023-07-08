@@ -23,9 +23,10 @@ export default {
                 @remove="removeEmail"
                 @openEmail="openEmail"
                 @toggleRead="toggleRead"
+                @star="onStar"
                 />
             <ComposeMail @send="send" v-if="isCompose"/>
-            <RouterView :emails="emails" @star="onStar"/>
+            <RouterView :emails="emails" />
         </section>
     `,
 
