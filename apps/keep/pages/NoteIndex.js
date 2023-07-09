@@ -14,10 +14,10 @@ import NoteAdd from "../cmps/NoteAdd.js";
 import NoteAddOpen from "../cmps/NoteAddOpen.js";
 import NoteDetails from "../cmps/NoteDetails.js";
 
-
 export default {
   template: `
-  <div 
+  <Transition>
+  <div class="main-layout"
   :class="{'edit-note-open': isEditNoteOpen}"
    > 
           <AppHeader
@@ -49,7 +49,6 @@ export default {
              @save="saveNote"
              />
            </Transition>
-
              
              <NoteDetails
               v-if="isEditNoteOpen"
@@ -60,7 +59,6 @@ export default {
        <h2 class="section-title"
        v-if="isFilterMode"
        >Search</h2>
-
 
        <!-- filtered-->
        <NoteList
@@ -113,8 +111,7 @@ export default {
        <NoteColor :note ="selectedNote" />
 
   </div>
-
-       
+ 
     `,
   created() {
     this.loadNotes(),
@@ -284,6 +281,6 @@ export default {
     SideBar,
     NoteAdd,
     NoteAddOpen,
-    NoteDetails
+    NoteDetails,
   },
 };

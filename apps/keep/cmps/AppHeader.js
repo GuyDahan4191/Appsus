@@ -1,4 +1,5 @@
 import NoteFilter from "../cmps/NoteFilter.js";
+import Apps from "../cmps/Apps.js";
 
 export default {
   template: `
@@ -17,18 +18,31 @@ export default {
             <span class="material-symbols-outlined">refresh</span>
             <span class="material-symbols-outlined">view_agenda</span>
             <span class="material-symbols-outlined">settings</span>
-            <span class="material-symbols-outlined">apps</span>
+            <span
+             class="material-symbols-outlined"
+             @click="isAppsOpen=!isAppsOpen"
+            >apps</span>
+            <Transition name="fade">
+              <Apps v-if="isAppsOpen"/>
+            </Transition>
             <span class="material-symbols-outlined">account_circle</span>
             </div>
         </header>
     `,
-    methods:{
-      openMenu(){
-        this.$emit('openMenu')
-      }
-    },
+  methods: {
+    openMenu() {
+      this.$emit('openMenu')
+    }
+  },
+  data() {
+    return {
+      isAppsOpen: false
+
+    }
+  },
 
   components: {
     NoteFilter,
+    Apps
   },
 };

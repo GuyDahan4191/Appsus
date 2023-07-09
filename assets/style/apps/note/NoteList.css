@@ -62,8 +62,8 @@
   .note-list .color-pallte >* {
     border-radius: 0.1em;
     cursor: pointer;
-    height: 1.5em;
-    width: 1.5em;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     margin: 0.15em;
     cursor: pointer;
