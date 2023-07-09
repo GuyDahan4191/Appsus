@@ -35,9 +35,9 @@ export default {
     saveNote() {
       if (this.type === 'NoteTodos') {
         const todoItems = this.userInput.userTxt
-          .split(',')
-          .map(item => item.trim())
-          .map(txt => ({ txt, doneAt: null }));
+        .split(',')
+        .map(item => item.trim())
+        .map(txt => ({ txt, doneAt: null }));
         this.userInput.userTxt = todoItems;
       }
       this.$emit('save', this.userInput, this.type);

@@ -35,3 +35,6 @@ h2 {
 .add-note ul li {
   padding: 0;
 }
+h5 {
+  cursor: pointer;
+}

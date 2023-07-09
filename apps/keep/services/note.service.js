@@ -73,63 +73,40 @@ function _createNotes() {
   let notes = utilService.load(NOTES_KEY) || [];
   if (!notes || !notes.length) {
     const notes = [
-      {
-        id: "n101",
-        createdAt: 1112222,
-        type: "NoteTxt",
-        isPinned: false,
-        style: {
-          backgroundColor: "#ffff",
-        },
-        info: {
-          title:"",
-          txt: "Keep Going!!",
-        },
-      },
+     
       {
         id: "n102",
         createdAt: 1112222,
         type: "NoteTxt",
         isPinned: false,
         style: {
-          backgroundColor: "#ffff",
+          backgroundColor: "#7676ff",
         },
         info: {
           title:"",
-          txt: "Keep Going!!",
+          txt: "Remebmer to remember!!",
         },
       },
+      {
+        id: "n123",
+        type: "NoteImg",
+        isPinned: false,
+        info: {
+          url: "https://images.unsplash.com/photo-1682686581312-506a8b53190e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          title: "My next vacation",
+        },
+        style: {
+          backgroundColor: "#ffff",
+        },
+      },
+      
       {
         id: "n103",
         type: "NoteImg",
         isPinned: false,
         info: {
           url: "https://plus.unsplash.com/premium_photo-1664701475272-953393050754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-          title: "Bobi and Me",
-        },
-        style: {
-          backgroundColor: "#ffff",
-        },
-      },
-      {
-        id: "n104",
-        type: "NoteVideo",
-        isPinned: false,
-        info: {
-          url: "https://www.youtube.com/watch?v=HjOTyTXBb9s",
-          title: "Coding",
-        },
-        style: {
-          backgroundColor: "#ffff",
-        },
-      },
-      {
-        id: "n105",
-        type: "NoteVideo",
-        isPinned: false,
-        info: {
-          url: "https://www.youtube.com/watch?v=HjOTyTXBb9s",
-          title: "Coding",
+          title: "Bobi",
         },
         style: {
           backgroundColor: "#ffff",
@@ -145,8 +122,50 @@ function _createNotes() {
         info: {
           title: "Get my stuff together",
           todos: [
+            { txt: "Take my dogs out", doneAt: null },
+            { txt: "Doing my project", doneAt: null },
+            { txt: "Make some dinner", doneAt: null },
+            { txt: "Plan my trip", doneAt: null },
+          ],
+        },
+      },
+      {
+        id: "n104",
+        type: "NoteVideo",
+        isPinned: false,
+        info: {
+          url: "https://www.youtube.com/watch?v=HjOTyTXBb9s",
+          title: "GitHub Lesson",
+        },
+        style: {
+          backgroundColor: "#ffff",
+        },
+      },
+      {
+        id: "n101",
+        createdAt: 1112222,
+        type: "NoteTxt",
+        isPinned: false,
+        style: {
+          backgroundColor: "#ffff78",
+        },
+        info: {
+          title:"",
+          txt: "Take my dog!",
+        },
+      },
+      {
+        id: "n106",
+        type: "NoteTodos",
+        isPinned: false,
+        style: {
+          backgroundColor: "#ffff",
+        },
+        info: {
+          title: "Get my stuff together",
+          todos: [
             { txt: "Driving license", doneAt: null },
-            { txt: "Coding power", doneAt: 187111111 },
+            { txt: "Coding power", doneAt: null },
           ],
         },
       },

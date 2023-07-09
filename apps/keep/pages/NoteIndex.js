@@ -36,19 +36,15 @@ export default {
 
            <div className="main-content">
 
-           <Transition>
            <NoteAdd 
            @setNoteType="openAddNoteByType"
             v-if="!isAddNoteOpen" />
-            </Transition>
 
-            <Transition>
             <NoteAddOpen
              v-if="isAddNoteOpen"
              :type="noteTypeToEdit" 
              @save="saveNote"
              />
-           </Transition>
              
              <NoteDetails
               v-if="isEditNoteOpen"
@@ -181,10 +177,10 @@ export default {
     saveNote(userInput, type) {
       this.isAddNoteOpen = false;
       if (!userInput.userTxt) return;
-    
+      
       this.noteToAdd.type = type;
       this.noteToAdd.info.title = userInput.userTitle;
-    
+      
       if (type === 'NoteTodos') {
         this.noteToAdd.info.todos = userInput.userTxt;
       } else {

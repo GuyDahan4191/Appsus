@@ -9,11 +9,10 @@ export default {
                 <h1 class="logo">AppSus</h1>
             </div>
             
-            <div className="search-container">
+           
            <NoteFilter
            @filterByTxt="$emit('filterByTxt', $event)"
            />
-           </div>
             <div className="actions-container">
             <span class="material-symbols-outlined">refresh</span>
             <span class="material-symbols-outlined">view_agenda</span>

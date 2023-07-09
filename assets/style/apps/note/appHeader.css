@@ -34,24 +34,22 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 600px;
+  margin-inline-start: 9em;
+
 }
 
 .app-header .search-container .search {
-  width: 600px;
+  width: 100%;
   border-radius: 0.6em;
   border: none;
-  background-color: rgb(228, 245, 252);
+  background-color: rgb(243, 243, 243);
   padding: 1rem 4rem;
   font-size: 1em;
 }
 
 .app-header .search-container .material-symbols-outlined {
   position: absolute;
-  left: 0;
-  padding: 0.5em;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.5s;
 }
 
 .app-header .search-container .material-symbols-outlined:hover {

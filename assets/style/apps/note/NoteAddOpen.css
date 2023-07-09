@@ -1,7 +1,7 @@
 .note-conteiner {
     display: flex;
     justify-content: center;
-    margin-block-start: 2em;
+    margin-block-start: 1em;
 }
 
 .note {
