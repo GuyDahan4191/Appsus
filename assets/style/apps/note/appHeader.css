@@ -13,12 +13,14 @@
     color: var(--secondary-clr2);
   }
 }
+
 .app-header .logo-container {
   display: flex;
   align-items: center;
 }
-.app-header .logo-container >*{
-    cursor: pointer;
+
+.app-header .logo-container>* {
+  cursor: pointer;
 }
 
 .app-header .logo {
@@ -38,10 +40,11 @@
   width: 600px;
   border-radius: 0.6em;
   border: none;
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(228, 245, 252);
   padding: 1rem 4rem;
   font-size: 1em;
 }
+
 .app-header .search-container .material-symbols-outlined {
   position: absolute;
   left: 0;
@@ -55,8 +58,8 @@
   background-color: rgb(202, 202, 202);
 }
 
-.app-header .actions-container >* {
-    margin-inline:0.4em;
-    cursor: pointer;
+.app-header .actions-container>* {
+  margin-inline: 0.4em;
+  cursor: pointer;
 
 }

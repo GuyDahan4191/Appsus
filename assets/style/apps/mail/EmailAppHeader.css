@@ -1,8 +1,22 @@
+.app-header {
+    max-height: 80px;
+}
+
 .logo-search-container {
     display: flex;
     flex-direction: row;
 }
 
 .email-filter {
-    margin-left: 75px;
+    margin-left: 55px;
+}
+
+.email-filter input {
+    border-radius: 10px;
+    width: 40vw;
+    border: none;
+    background-color: rgb(228, 245, 252);
+
+    /* padding: 1rem 4rem; */
+    font-size: 1em;
 }

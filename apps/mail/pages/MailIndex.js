@@ -10,36 +10,55 @@ import AppHeader from "../cmps/MailAppHeader.js";
 
 export default {
     name: 'EmailIndex',
-    props: ['email'],
+
     template: `
+
         <AppHeader @filterTxt="setFilterBy"/>
         <section class="email-index">
-            <button class="new-email" @click="onToggleCompose">
-                <span class="material-symbols-outlined">edit
-                </span>Compose
+            <button 
+                class="new-email" 
+                @click="onToggleCompose">
+                    <span class="material-symbols-outlined">edit</span>Compose
             </button>
 
             <div class="btn-filters">
-                <button class="btn-filter" @click="onSetSortBy('date')">filter by date</button>
-                <button class="btn-filter" @click="onSetSortBy('subject')">filter by subject</button>
-                <button class="btn-filter" @click="onSetSortBy('from')">filter by from</button>
+                <span
+                    @click="onSetSortBy('date')"><span class="btn-filter material-symbols-outlined" title="Filter by Date">
+                        calendar_month</span>
+                </span>
+
+                <span
+                    @click="onSetSortBy('subject')"><span class="btn-filter material-symbols-outlined">title
+                        </span>
+                </span>
+<!-- 
+                <span
+                    class="btn-filter" 
+                    @click="onSetSortBy('from')">filter by from
+                </span> -->
             </div>
                 
-            <EmailMenu @filterByMenu="onFilterByMenu" :emails="emails"/>
+            <EmailMenu 
+                @filterByMenu="onFilterByMenu" 
+                :emails="emails"
+            />
+            
             <EmailList
                 v-if="emails"
                 :emails="filteredEmails" 
                 @remove="removeEmail"
                 @openEmail="openEmail"
                 @toggleRead="toggleRead"
-                @star="onStar"
-                />
+                @star="star"
+            />
+
             <ComposeMail
                 v-if="isCompose" 
                 @send="onSend"
                 @close="close"
                 @draftSaved="loadEmails"
-                />
+            />
+            
             <RouterView :emails="emails" />
         </section>
     `,
@@ -51,9 +70,8 @@ export default {
                 menu: 'inbox',
                 txt: '',
                 isStared: false,
-                // isRead: 'all',
                 sortBy: 'date',
-                sortDirectaion: true
+                sortDirectaion: 'true'
             },
             isCompose: false,
         }
@@ -72,10 +90,6 @@ export default {
             const regex = new RegExp(this.filterBy.txt, 'i')
             filteredEmails = filteredEmails.filter(email => regex.test(email.subject) || regex.test(email.body) || regex.test(email.from))
             return filteredEmails
-        },
-
-        getBtnUnreadClass() {
-            return this.filteredBy.isUnread ? 'btn-unread-on' : ''
         },
     },
 
@@ -151,12 +165,12 @@ export default {
             }
             emailService.save(email)
                 .then(savedmail => this.emails.push(savedmail))
-            this.showCompose = false
+            this.isCompose = false
             showSuccessMsg('mail sent')
         },
 
-        close(sendEmail) {
-            this.isCompose = !this.isCompose
+        close() {
+            this.isCompose = false
 
             const email = {
                 folder: draft
@@ -186,9 +200,27 @@ export default {
                 })
         },
 
-        onStar(emailId) {
-            emailService.toggleStar(emailId)
-                .then(() => this.loadEmails())
+        star(emailId) {
+            emailService.get(emailId)
+                .then(email => {
+                    email.isStar = !email.isStar
+                    return emailService.save(email)
+                })
+                .then(this.loadEmails)
+                .catch(err => console.log(err))
+            // emailService.toggleStar(emailId)
+            //     .then(() => this.loadEmails())
+        },
+
+        selectEmail(emailId) {
+            console.log('check:')
+            emailService.get(emailId)
+                .then(email => {
+                    this.email.isSelected = !this.email.isSelected
+                    return emailService.save(email)
+                })
+                .then(this.loadEmails)
+                .catch(err => console.log(err))
         },
 
         onSetSortBy(sortBy) {

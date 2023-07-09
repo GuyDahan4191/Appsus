@@ -11,7 +11,7 @@ export const emailService = {
     remove,
     toggleRead,
     toggleStar,
-    getCountUnread,
+    getUnreadCount,
 }
 
 const EMAIL_KEY = 'emailDB'
@@ -22,8 +22,6 @@ var gFilterBy = {
     sortBy: '',
     sortDirection: 1
 }
-
-let gUnreadCount
 
 const loggedinUser = {
     email: 'guy@appsus.com',
@@ -53,7 +51,6 @@ function query() {
                     case 'sent':
                         emails = emails.filter(email =>
                             (email.from === loggedinUser.email))
-                        // && email.sentAt && email.folder !== 'draft')
                         break
                     case 'trash':
                         emails = emails.filter(email => email.removedAt || email.folder === 'trash')
@@ -63,7 +60,7 @@ function query() {
                         break
                 }
             }
-            console.log('sort', gFilterBy.sortBy)
+            // console.log('sort', gFilterBy.sortBy)
             // emails.sort((a, b) => {
             //     if (gFilterBy.sortDirection) {
             //         if (a[gFilterBy.sortBy] < b[gFilterBy.sortBy]) return gFilterBy.sortBy ? 1 : -1
@@ -131,17 +128,16 @@ function toggleRead(email) {
 function toggleStar(emailId) {
     return get(emailId)
         .then(email => {
-            console.log('star before:', email.isStar)
+            // console.log('star before:', email.isStar)
             email.isStar = !email.isStar
-            console.log('star after:', email.isStar)
+            // console.log('star after:', email.isStar)
             return put(email)
         })
 }
 
-function getCountUnread() {
-    // return query({ menu: 'inbox', txt: '' })
-    //     .then(emails => emails.filter(email => email.isRead === 'false').length)
-    return gUnreadCount
+function getUnreadCount() {
+    return query({ folder: 'inbox', txt: '' })
+        .then(emails => emails.filter(email => !email.isRead).length)
 }
 
 function _createEmails() {

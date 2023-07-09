@@ -5,7 +5,7 @@ export default {
             <form @submit.prevent="onSend" class="compose-email">
                 <div class="new-header">
                     <p class="new-messege">New Message</p>
-                    <p class="new-close" @click="close">X</p>
+                    <p class="new-close" @click="onClose">X</p>
                 </div>
                 <input class="new-to" v-model="to" required type="email" placeholder="Recipients"/>
                 <input class="new-subject" v-model="subject" required type="text" placeholder="Subject"/>

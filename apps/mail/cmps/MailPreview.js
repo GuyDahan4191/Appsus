@@ -2,33 +2,20 @@
 export default {
     name: 'EmailPreview',
     props: ['email'],
-    emit: ['star'],
+
     template: `
         <RouterLink :to="'/mail/' + email.id">
-            <article class="email-preview-container"
-                :class="{'unread-email': !email.isRead,
-                'read-email': email.isRead}">
-
-                <div class="email-preview-info">
-                    <div class="line-boxes">
-                        <input type="checkbox" class="line-checkbox">
-                        <div @click="onStar" class="star" 
-                            :class="{'star-true': email.isStar,
-                                'star-false': !email.isStar}">
-                            <span class="material-symbols-outlined">star</span>
-                        </div>
+            <article>
+                <section class="line-preview">
+                    <span class="name">{{email.from}}</span>
+                    <div class="subject-body">
+                        <span class="subject">{{email.subject}}</span>
+                        - 
+                        <span class="body">{{email.body}}</span>
                     </div>
-                    <div class="line-preview">
-                        <span class="name">{{email.from}}</span>
-                        <div class="subject-body">
-                            <span class="subject">{{email.subject}}</span>
-                            - 
-                            <span class="body">{{email.body}}</span>
-                        </div>
-                        <span class="sent-at">{{readableTime}}</span>
-                    </div>
-                </div>
-            </article>
+                    <span class="sent-at">{{readableTime}}</span>
+                </section>    
+            </article> 
         </RouterLink>
     `,
 
@@ -36,10 +23,6 @@ export default {
     },
 
     methods: {
-        onStar() {
-            this.email.isStar = !this.email.isStar
-            this.$emit('star', this.email.id)
-        },
     },
 
     computed: {

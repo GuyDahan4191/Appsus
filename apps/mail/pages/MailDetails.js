@@ -2,7 +2,7 @@ import { emailService } from '../services/mail.service.js'
 
 export default {
     props: ['emails'],
-    emit: ['star'],
+
     template: `
         <section v-if="email" class="email-details-container">
 
@@ -12,12 +12,14 @@ export default {
                     From: &lt{{email.from}}&gt
                 </span>
                 <div>
-                    <span @click.stop="onStar" class="star" 
+                    <span 
+                        @click="onStar" 
+                        class="star material-symbols-outlined"
                         :class="{'star-true': email.isStar,
-                        'star-false': !email.isStar}">
-                        <span class="material-symbols-outlined">star</span>
-                    </span>
-                    <span @click.stop="onReply" class="reply">
+                                'star-false': !email.isStar}"
+                    >star</span>
+                    <!-- @click.stop="onReply" -->
+                    <span class="reply">
                         <span class="material-symbols-outlined">reply</span>
                     </span>
                 </div>
@@ -59,24 +61,9 @@ export default {
     },
 
     methods: {
-        onStar() {
-            this.email.isStar = !this.email.isStar
-            this.$emit('star', this.email.id)
+        onStar(emailId) {
+            console.log('on star in list')
+            this.$emit('star', emailId)
         },
     },
-
-    // loadEmail() {
-    //     const { emailId } = this.$route.params
-    //     emailService.get(emailId)
-    //         .then(email => this.email = email)
-    //         .catch(err => {
-    //             alert('Cannot load email')
-    //             this.$router.push('/mail')
-    //         })
-    // },
-
-    // returnToList() {
-    //     this.$router.push('/email')
-    //     this.showDetails = false
-    // }
 }
